@@ -1335,22 +1335,28 @@
 
     async function handleAuthState(user) {
         if (user) {
-            const userDocRef = doc(db, 'committeeMembers', user.uid);
-            const userDocSnap = await getDoc(userDocRef);
+            try {
+                const userDocRef = doc(db, 'committeeMembers', user.uid);
+                const userDocSnap = await getDoc(userDocRef);
 
-            if (userDocSnap.exists()) {
-                currentUserProfile = userDocSnap.data();
-                
-                document.getElementById('main-nav').style.display = 'none';
-                document.getElementById('portal-nav').style.display = 'flex';
-                document.getElementById('user-info').textContent = `Welcome, ${currentUserProfile.name}`;
-                document.querySelectorAll('.admin-only').forEach(el => {
-                    el.style.display = currentUserProfile.role === 'admin' ? 'block' : 'none';
-                });
-                showPortalPage(currentUserProfile.role === 'admin' ? 'page-admin-dashboard' : 'page-portal-dashboard');
-            } else {
-                console.error("No profile found for user:", user.uid);
-                alert("Your account is authenticated, but no user profile was found. Please contact an administrator.");
+                if (userDocSnap.exists()) {
+                    currentUserProfile = userDocSnap.data();
+                    
+                    document.getElementById('main-nav').style.display = 'none';
+                    document.getElementById('portal-nav').style.display = 'flex';
+                    document.getElementById('user-info').textContent = `Welcome, ${currentUserProfile.name}`;
+                    document.querySelectorAll('.admin-only').forEach(el => {
+                        el.style.display = currentUserProfile.role === 'admin' ? 'block' : 'none';
+                    });
+                    showPortalPage(currentUserProfile.role === 'admin' ? 'page-admin-dashboard' : 'page-portal-dashboard');
+                } else {
+                    console.error("No profile found for user:", user.uid);
+                    alert("Your account is authenticated, but no user profile was found in the database. Please contact an administrator.");
+                    await logout();
+                }
+            } catch (error) {
+                console.error("Error fetching user profile from Firestore:", error);
+                alert("Login was successful, but there was an error fetching your user profile. This is likely due to Firestore Security Rules. Please see the 'firestore_rules.txt' file for the correct rules to apply in your Firebase project.");
                 await logout();
             }
         } else {
@@ -2325,4 +2331,3 @@
   </script>
 </body>
 </html>
-
