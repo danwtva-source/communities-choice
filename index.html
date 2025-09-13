@@ -2270,14 +2270,16 @@
     // INITIALIZATION
     // ----------------
     document.addEventListener('DOMContentLoaded', async () => {
-      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-      if (!firebaseConfig) {
-          console.error("Firebase config not found!");
-          document.body.innerHTML = "<h1>Error: Firebase configuration is missing.</h1>";
-          return;
-      }
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
+        authDomain: "communities-choice-portal.firebaseapp.com",
+        projectId: "communities-choice-portal",
+        storageBucket: "communities-choice-portal.appspot.com",
+        messagingSenderId: "77753238309",
+        appId: "1:77753238309:web:b7bc1381f9478ccbff90cc",
+        measurementId: "G-KMGCMW8840"
+      };
 
       app = initializeApp(firebaseConfig);
       auth = getAuth(app);
@@ -2323,3 +2325,5 @@
   </script>
 </body>
 </html>
+
+
