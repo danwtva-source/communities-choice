@@ -27,8 +27,8 @@
     :root {
       --timeline-scale: 1.0;
     }
-    html.timeline-fullscreen, html.modal-open {
-      overflow: hidden; /* Prevent scrolling of the body in fullscreen or when modal is open */
+    html.timeline-fullscreen {
+      overflow: hidden; /* Prevent scrolling of the body in fullscreen */
     }
     h1, h2, h3, .dynapuff {
       font-family: 'DynaPuff', cursive !important;
@@ -400,23 +400,22 @@
               <h1 class="text-xl font-bold text-purple-700 dynapuff hidden sm:block">Communities' Choice</h1>
           </div>
           <nav id="main-nav" class="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-base flex-wrap justify-end">
-              <!-- AMENDMENT: Replaced onclick with data-page attributes for cleaner event handling -->
-              <button data-page="page-postcode-check" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Vote</button>
-              <button data-page="page-landing" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Browse Areas</button>
-              <button data-page="page-priorities" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Our Priorities</button>
-              <button data-page="page-documents" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Documents</button>
-              <button data-page="page-timeline" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Timeline</button>
-              <button data-page="page-faq" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">FAQ</button>
-              <button data-page="page-portal-login" class="bg-purple-100 text-purple-800 hover:bg-purple-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff border border-purple-300">Committee Portal</button>
+              <button onclick="showPage('page-postcode-check')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Vote</button>
+              <button onclick="showPage('page-landing')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Browse Areas</button>
+              <button onclick="showPage('page-priorities')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Our Priorities</button>
+              <button onclick="showPage('page-documents')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Documents</button>
+              <button onclick="showPage('page-timeline')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Timeline</button>
+              <button onclick="showPage('page-faq')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">FAQ</button>
+              <button onclick="showPage('page-portal-login')" class="bg-purple-100 text-purple-800 hover:bg-purple-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff border border-purple-300">Committee Portal</button>
           </nav>
            <nav id="portal-nav" class="hidden items-center space-x-1 sm:space-x-2 text-xs sm:text-base flex-wrap justify-end">
                 <div id="user-info" class="text-sm text-purple-800 font-semibold mr-4"></div>
-                <button id="nav-portal-home" data-portal-page="page-portal-dashboard" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Portal Home</button>
-                <button data-portal-page="page-scoring" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Scoring Matrix</button>
-                <button data-portal-page="page-portal-apps" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Applications</button>
-                <button data-portal-page="page-portal-docs" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Documents</button>
-                <button id="nav-master-tracker" data-portal-page="page-portal-tracker" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff admin-only" style="display: none;">Master Tracker</button>
-                <button id="logout-button" class="bg-red-100 text-red-700 hover:bg-red-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Logout</button>
+                <button id="nav-portal-home" onclick="showPortalPage('page-portal-dashboard')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Portal Home</button>
+                <button onclick="showPortalPage('page-scoring')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Scoring Matrix</button>
+                <button onclick="showPortalPage('page-portal-apps')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Applications</button>
+                <button onclick="showPortalPage('page-portal-docs')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Documents</button>
+                <button id="nav-master-tracker" onclick="showPortalPage('page-portal-tracker')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff admin-only" style="display: none;">Master Tracker</button>
+                <button onclick="logout()" class="bg-red-100 text-red-700 hover:bg-red-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Logout</button>
             </nav>
       </div>
   </header>
@@ -454,7 +453,7 @@
             <label for="postcode-input" class="block text-sm font-medium text-gray-700 arial-nova mb-1">Enter your postcode:</label>
             <input type="text" id="postcode-input" placeholder="e.g., NP4 9AA" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500">
           </div>
-          <button id="check-postcode-btn" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+          <button onclick="checkPostcode()" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
             Check & Proceed to Vote
           </button>
         </div>
@@ -476,8 +475,37 @@
       <div class="flex justify-center items-center pb-12">
         <div class="w-full max-w-2xl px-4">
           <div class="swiper">
-            <div id="carousel-wrapper" class="swiper-wrapper">
-              <!-- Slides will be dynamically inserted here -->
+            <div class="swiper-wrapper">
+              <!-- Blaenavon Slide -->
+              <div class="swiper-slide">
+                <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/DpFwi7NmCYnXBUvt.png?Expires=1758100505&Signature=jlPadhDb87yecaeuDrovOJ8W4vJsM78wL7dATdYb~Zkt-rjx9PP91bnDaKm1C-u3rj3DoMxZgUDTKILX56ulPNA2yxQeA8VZ36ta9nnTM4NuTBB99bYdpFplFIvEQG0kTbbevzinz7tFgt72dKeomgSl1vbtTmewtYr2hKyCb55~Oo-fO-YTIDn7foDO8~N0eilutBg8GkwzGY71zJ8vY0UGGx9UVbVkuVaOVJ4l8943KHfZvxCJii9TQngAMyP~wnuACwcPktNR7gwUwVj64AmLKK-P7kA-P32uG7odsEYus1WKHF5ev0gKGPoJZxfLdBAW23SovTZzeJPz80Yk2w__&Key-Pair-Id=K3USGZIKWMDCSX"
+                  alt="Blaenavon Area Map" class="area-img" />
+                <h3 class="text-2xl font-semibold text-purple-700 mb-2 dynapuff">Blaenavon</h3>
+                <p class="text-gray-700 mb-4 arial-nova">See projects in Blaenavon and vote for your favourite three!</p>
+                <button onclick="goToVotePage('blaenavon')" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+                  View & Vote
+                </button>
+              </div>
+              <!-- Thornhill & Upper Cwmbran Slide -->
+              <div class="swiper-slide">
+                <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/3joLjVtaze4usLfm.png?Expires=1758100505&Signature=JH8GE9pSMwMt9YML1raWirg7OO5YJmOtMx7JGGF5bbIrsPRrXMmjLi8~g25wZp6kbXSzTzpQuJ-a2-U57GvmUGJ4IeGVH5tzk7f6dixHiSWNb6hKOoli62vf9e12pvgZ8js0SGGboocqur0LzX2SGWSdB9QwXm6FYEN8FWo1aqREudkAD7xMLSAJybTYhd0uTnZ8QGzICl6mkE7vjw9T1dJAEay7lbI4udOth~zbMYusPPSASjwvMKxbVwZfg3heLoj2Ac2dOXhNmfzxsshgYb0p0GLgVtoN89yaP7c68iOJu19sihGt3of2edtTnfqq002vljpRBlhSms-XxDmefw__&Key-Pair-Id=K3USGZIKWMDCSX"
+                  alt="Thornhill & Upper Cwmbran Area Map" class="area-img" />
+                <h3 class="text-2xl font-semibold text-purple-700 mb-2 dynapuff">Thornhill & Upper Cwmbran</h3>
+                <p class="text-gray-700 mb-4 arial-nova">See projects in Thornhill & Upper Cwmbran and vote!</p>
+                <button onclick="goToVotePage('thornhill')" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+                  View & Vote
+                </button>
+              </div>
+              <!-- Trevethin, Penygarn & St. Cadocs Slide -->
+              <div class="swiper-slide">
+                <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/QJCGbMDvyu4wVjrW.png?Expires=1758100505&Signature=dO2virUuXDAU0UZKzP5LEzc-8hUgGX3qJBUAgjkWl8USaxT~YXr9hTc5xQlfFtvQIQcKPMB7Co2EQ1uPb3n~H1TuDFKL8ieRyXp34-8RLtYmRTToLGc~luAc6vFBdLR9~rygd8GYlbr-FuJdTpbdc-rZa0U6gis3Og7zf0a731~WXeG5S0JJ70V4AnXK-dO5URY5H0ErUWtciVd1faoCcuo6nktLtWii70-C2YsRP207IZxVr9giQrYY5eCJhrdG~9U713Uh5lVJhQHbj1hhqpo1oFspfdv308bODnAKmXNR8JGuCZyfjMMWZODFWMeMMZiA54vDfyrrCNBGT0VyDw__&Key-Pair-Id=K3USGZIKWMDCSX"
+                  alt="Trevethin, Penygarn & St Cadocs Area Map" class="area-img" />
+                <h3 class="text-2xl font-semibold text-purple-700 mb-2 dynapuff">Trevethin, Penygarn & St. Cadocs</h3>
+                <p class="text-gray-700 mb-4 arial-nova">See projects in this area and vote for your favourite three!</p>
+                <button onclick="goToVotePage('trevethin')" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+                  View & Vote
+                </button>
+              </div>
             </div>
             <!-- Carousel Navigation -->
             <div class="swiper-pagination"></div>
@@ -511,10 +539,10 @@
 
             <!-- Area Tabs -->
             <div class="mb-8 border-b-2 border-gray-200">
-                <nav id="priorities-tabs" class="-mb-0.5 flex justify-center space-x-2 sm:space-x-6" aria-label="Tabs">
-                    <button data-area="blaenavon" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff active">Blaenavon</button>
-                    <button data-area="thornhill" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Thornhill & Upper Cwmbran</button>
-                    <button data-area="trevethin" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Trevethin, Penygarn & St. Cadocs</button>
+                <nav class="-mb-0.5 flex justify-center space-x-2 sm:space-x-6" aria-label="Tabs">
+                    <button id="tab-blaenavon" onclick="showPriorityArea('blaenavon')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff active">Blaenavon</button>
+                    <button id="tab-thornhill" onclick="showPriorityArea('thornhill')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Thornhill & Upper Cwmbran</button>
+                    <button id="tab-trevethin" onclick="showPriorityArea('trevethin')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Trevethin, Penygarn & St. Cadocs</button>
                 </nav>
             </div>
             
@@ -791,7 +819,7 @@
                 <div class="space-y-4">
                     <input type="text" id="login-username" placeholder="Username (e.g. jsmith)" class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                     <input type="password" id="login-password" placeholder="Password" class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                    <button id="login-button" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+                    <button onclick="login()" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
                         Login
                     </button>
                 </div>
@@ -834,9 +862,9 @@
                 Welcome. This is your central hub for scoring applications, viewing submitted documents, and accessing committee resources.
               </p>
             </div>
-            <div id="dashboard-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Card 1: Scoring Matrix -->
-                <div data-portal-page="page-scoring" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
+                <div onclick="showPortalPage('page-scoring')" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
                     <div class="bg-purple-100 text-purple-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     </div>
@@ -844,7 +872,7 @@
                     <p class="text-gray-600 arial-nova">Access the official tool to assess and score all submitted applications.</p>
                 </div>
                 <!-- Card 2: Applications Viewer -->
-                <div data-portal-page="page-portal-apps" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
+                <div onclick="showPortalPage('page-portal-apps')" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
                      <div class="bg-teal-100 text-teal-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a4 4 0 014-4h6a4 4 0 014 4v12a4 4 0 01-4 4H7zM10 12h4"></path></svg>
                     </div>
@@ -852,7 +880,7 @@
                     <p class="text-gray-600 arial-nova">View and read all the submitted application PDF documents.</p>
                 </div>
                 <!-- Card 3: Documents Hub -->
-                <div data-portal-page="page-portal-docs" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
+                <div onclick="showPortalPage('page-portal-docs')" class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer text-center">
                     <div class="bg-purple-100 text-purple-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
@@ -871,7 +899,7 @@
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Back to Portal Dashboard
                 </button>
-                 <button id="open-guide-button" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition transform hover:scale-105">
+                 <button onclick="openGuideModal()" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition transform hover:scale-105">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     View User Guide
                 </button>
@@ -1045,7 +1073,7 @@
     <div id="pdf-viewer-window" class="hidden fixed top-20 left-10 w-[50vw] h-[75vh] bg-white rounded-lg shadow-2xl flex flex-col border-2 border-purple-200 resize overflow-hidden" style="min-width: 400px; min-height: 500px;">
         <div id="pdf-viewer-header" class="flex justify-between items-center p-2 bg-gray-100 border-b cursor-move">
             <h3 id="pdf-viewer-title" class="text-lg font-bold text-gray-800 dynapuff truncate pl-2">Application Viewer</h3>
-            <button id="close-pdf-viewer-btn" class="text-gray-500 hover:text-red-600 p-1 rounded-full">
+            <button onclick="closePdfViewer()" class="text-gray-500 hover:text-red-600 p-1 rounded-full">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
@@ -1055,11 +1083,11 @@
     </div>
 
     <!-- User Guide Modal -->
-    <div id="guide-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[1002] flex items-center justify-center p-4 transition-opacity duration-300">
+    <div id="guide-modal" onclick="event.target === this && closeGuideModal()" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[1002] flex items-center justify-center p-4 transition-opacity duration-300">
         <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl p-6 sm:p-8 flex flex-col">
             <div class="flex justify-between items-center border-b border-gray-200 pb-3 mb-4">
                 <h2 class="text-2xl font-bold text-purple-700 dynapuff">Scoring Matrix User Guide</h2>
-                 <button id="close-guide-modal-btn" class="text-gray-400 hover:text-red-600 hover:bg-red-100 p-1 rounded-full transition-colors">
+                 <button onclick="closeGuideModal()" class="text-gray-400 hover:text-red-600 hover:bg-red-100 p-1 rounded-full transition-colors">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -1093,21 +1121,6 @@
             </div>
         </div>
     </div>
-
-    <!-- AMENDMENT: Added a generic confirmation modal to replace browser's `confirm()` -->
-    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-[1003] flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 text-center">
-            <div class="w-16 h-16 mx-auto flex items-center justify-center bg-yellow-100 rounded-full mb-4">
-                 <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            </div>
-            <h2 id="confirmation-modal-title" class="text-2xl font-bold text-gray-800 mb-2 dynapuff">Are you sure?</h2>
-            <p id="confirmation-modal-message" class="text-gray-600 mb-6 arial-nova">You won't be able to revert this!</p>
-            <div class="flex justify-center gap-4">
-                <button id="confirmation-modal-cancel" class="py-2 px-6 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300 transition-colors dynapuff">Cancel</button>
-                <button id="confirmation-modal-confirm" class="py-2 px-6 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors dynapuff">Yes, I'm sure</button>
-            </div>
-        </div>
-    </div>
   </main>
   
   <!-- Firebase SDK -->
@@ -1130,74 +1143,63 @@
         collection, 
         onSnapshot, 
         query, 
-        where, getDocs 
+        where 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // ---------------
     // DATA
     // ---------------
-    // AMENDMENT: Combined area data into a single, more maintainable object
-    const siteData = {
-        areas: {
-            'blaenavon': {
-                name: 'Blaenavon',
-                formUrl: 'https://forms.office.com/e/FTQ4s8EK84',
-                postcodes: ["NP49AA","NP49AB","NP49AD","NP49AE","NP49AF","NP49AG","NP49AH","NP49AJ","NP49AL","NP49AN","NP49AP","NP49AQ","NP49AR","NP49AS","NP49AT","NP49AU","NP49AW","NP49AX","NP49AY","NP49AZ","NP49BA","NP49BB","NP49BD","NP49BE","NP49BG","NP49BH","NP49BJ","NP49BL","NP49BN","NP49BP","NP49BQ","NP49BS","NP49BT","NP49BU","NP49BW","NP49BX","NP49BY","NP49BZ","NP49DA","NP49DB","NP49DD","NP49DE","NP49DF","NP49DG","NP49DH","NP49DJ","NP49DL","NP49DN","NP49DP","NP49DQ","NP49DR","NP49DS","NP49DT","NP49DU","NP49DW","NP49DX","NP49DY","NP49DZ","NP49EA","NP49EB","NP49ED","NP49EE","NP49EF","NP49EG","NP49EH","NP49EJ","NP49EL","NP49EN","NP49EP","NP49EQ","NP49ER","NP49ES","NP49ET","NP49EU","NP49EW","NP49EX","NP49EY","NP49EZ","NP49FA","NP49FB","NP49FD","NP49FE","NP49FF","NP49FG","NP49FH","NP49FJ","NP49FL","NP49FN","NP49FP","NP49FQ","NP49FR","NP49FS","NP49FT","NP49FU","NP49FW","NP49FX","NP49FY","NP49FZ","NP49GA","NP49GB","NP49GD","NP49GE","NP49GF","NP49GG","NP49GH","NP49GJ","NP49GL","NP49GN","NP49GP","NP49GQ","NP49GR","NP49GS","NP49GT","NP49GU","NP49GW","NP49GX","NP49GY","NP49GZ","NP49HA","NP49HB","NP49HD","NP49HE","NP49HF","NP49HG","NP49HH","NP49HJ","NP49HL","NP49HN","NP49HP","NP49HQ","NP49HR","NP49HS","NP49HT","NP49HU","NP49HW","NP49HX","NP49HY","NP49HZ","NP49JA","NP49JB","NP49JD","NP49JE","NP49JF","NP49JG","NP49JH","NP49JJ","NP49JL","NP49JN","NP49JP","NP49JQ","NP49JR","NP49JS","NP49JT","NP49JU","NP49JW","NP49JX","NP49JY","NP49JZ","NP49LA","NP49LB","NP49LD","NP49LE","NP49LF","NP49LG","NP49LH","NP49LJ","NP49LL","NP49LN","NP49LP","NP49LQ","NP49LR","NP49LS","NP49LT","NP49LU","NP49LW","NP49LX","NP49LY","NP49LZ","NP49NA","NP49NB","NP49ND","NP49NE","NP49NF","NP49NG","NP49NH","NP49NL","NP49NN","NP49NP","NP49NQ","NP49NR","NP49NS","NP49NT","NP49NU","NP49NW","NP49NX","NP49NY","NP49NZ","NP49PA","NP49PB","NP49PD","NP49PE","NP49PF","NP49PG","NP49PH","NP49PJ","NP49PL","NP49PN","NP49PP","NP49PQ","NP49PR","NP49PS","NP49PT","NP49PU","NP49PW","NP49PX","NP49PY","NP49PZ","NP49QA","NP49QB","NP49QD","NP49QE","NP49QF","NP49QG","NP49QH","NP49QJ","NP49QL","NP49QN","NP49QP","NP49QQ","NP49QR","NP49QS","NP49QT","NP49QU","NP49QW","NP49QX","NP49QY","NP49QZ","NP49RA","NP49RB","NP49RD","NP49RE","NP49RF","NP49RG","NP49RH","NP49RJ","NP49RL","NP49RN","NP49RP","NP49RQ","NP49RR","NP49RS","NP49RT","NP49RU","NP49RW","NP49RX","NP49RY","NP49RZ","NP49SA","NP49SB","NP49SD","NP49SE","NP49SF","NP49SG","NP49SJ","NP49SR"],
-                mapUrl: "https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/DpFwi7NmCYnXBUvt.png?Expires=1758100505&Signature=jlPadhDb87yecaeuDrovOJ8W4vJsM78wL7dATdYb~Zkt-rjx9PP91bnDaKm1C-u3rj3DoMxZgUDTKILX56ulPNA2yxQeA8VZ36ta9nnTM4NuTBB99bYdpFplFIvEQG0kTbbevzinz7tFgt72dKeomgSl1vbtTmewtYr2hKyCb55~Oo-fO-YTIDn7foDO8~N0eilutBg8GkwzGY71zJ8vY0UGGx9UVbVkuVaOVJ4l8943KHfZvxCJii9TQngAMyP~wnuACwcPktNR7gwUwVj64AmLKK-P7kA-P32uG7odsEYus1WKHF5ev0gKGPoJZxfLdBAW23SovTZzeJPz80Yk2w__&Key-Pair-Id=K3USGZIKWMDCSX",
-                mapAlt: "Blaenavon Area Map",
-                description: "See projects in Blaenavon and vote for your favourite three!"
-            },
-            'thornhill': {
-                name: 'Thornhill & Upper Cwmbran',
-                formUrl: 'https://forms.office.com/e/n0jg5xdAwS',
-                postcodes: ["NP45DQ","NP441AB","NP441AY","NP441AZ","NP441BA","NP441BE","NP441BG","NP441BH","NP441BJ","NP441BL","NP441BN","NP441BP","NP441BS","NP441BT","NP441BU","NP441BW","NP441BX","NP441BY","NP441BZ","NP441DA","NP441DB","NP441DE","NP441DF","NP441DG","NP441DH","NP441DJ","NP441DL","NP441DN","NP441DP","NP441DQ","NP441DR","NP441DS","NP441DT","NP441DU","NP441DW","NP441DX","NP441DY","NP441DZ","NP441EA","NP441EB","NP441ED","NP441EE","NP441EF","NP441EG","NP441EH","NP441EL","NP441EN","NP441EP","NP441EQ","NP441ER","NP441ES","NP441ET","NP441EU","NP441EW","NP441EX","NP441EY","NP441EZ","NP441HA","NP441HB","NP441HD","NP441HE","NP441HF","NP441HG","NP441HH","NP441HJ","NP441HL","NP441HN","NP441HP","NP441HQ","NP441HR","NP441HS","NP441HT","NP441HU","NP441HW","NP441HX","NP441HY","NP441HZ","NP441JA","NP441JB","NP441JD","NP441JE","NP441JF","NP441JG","NP441JH","NP441JJ","NP441JL","NP441JN","NP441JP","NP441JR","NP441JS","NP441JT","NP441JU","NP441JX","NP441LA","NP441LB","NP441LD","NP441LE","NP441LG","NP441LH","NP441LJ","NP441LL","NP441LN","NP441LP","NP441LQ","NP441LR","NP441LS","NP441LT","NP441LU","NP441LW","NP441LX","NP441NA","NP441NB","NP441ND","NP441NE","NP441NF","NP441NG","NP441NH","NP441NJ","NP441NL","NP441NN","NP441NP","NP441NQ","NP441NR","NP441NS","NP441NT","NP441NU","NP441NW","NP441PA","NP441PB","NP441PD","NP441PE","NP441PF","NP441PG","NP441PH","NP441PJ","NP441PL","NP441PN","NP441PP","NP441PQ","NP441PR","NP441PS","NP441PT","NP441PU","NP441PW","NP441PX","NP441PY","NP441PZ","NP441QA","NP441QB","NP441QD","NP441QE","NP441QF","NP441QG","NP441QH","NP441QJ","NP441QL","NP441QP","NP441QQ","NP441QR","NP441QS","NP441QT","NP441QU","NP441QW","NP441QX","NP441QY","NP441QZ","NP441RA","NP441RB","NP441RD","NP441RE","NP441RF","NP441RG","NP441RH","NP441RJ","NP441RL","NP441RN","NP441RP","NP441RQ","NP441RR","NP441RS","NP441RT","NP441RU","NP441RW","NP441RX","NP441RY","NP441RZ","NP441SA","NP441SB","NP441SD","NP441SE","NP441SF","NP441SG","NP441SH","NP441SJ","NP441SL","NP441SN","NP441SP","NP441SQ","NP441SR","NP441SS","NP441ST","NP441SU","NP441SW","NP441SX","NP441SY","NP441SZ","NP441TA","NP441TB","NP441TD","NP441TE","NP441TF","NP441TG","NP441TH","NP441TJ","NP441TL","NP441TN","NP441TP","NP441TQ","NP441TR","NP441TS","NP441TT","NP441TU","NP441TW","NP441TX","NP441TY","NP441UA","NP441WA","NP441WB","NP442EB","NP442RX","NP442SB","NP444TQ","NP445AA","NP445AB","NP445AD","NP445AE","NP445AF","NP445AG","NP445AH","NP445AJ","NP445AL","NP445AN","NP445AP","NP445AQ","NP445AR","NP445AS","NP445AT","NP445AU","NP445AW","NP445AX","NP445AY","NP445AZ","NP445BA","NP445BB","NP445BD","NP445BE","NP445BF","NP445BG","NP445BH","NP445BJ","NP445BL","NP445BN","NP445BP","NP445BQ","NP445BS","NP445BT","NP445BU","NP445BW","NP445BX","NP445BY","NP445BZ","NP445DA","NP445DB","NP445DD","NP445DE","NP445DF","NP445DG","NP445DH","NP445DJ","NP445DL","NP445DN","NP445DP","NP445DQ","NP445DR","NP445DS","NP445DT","NP445DU","NP445DW","NP445DX","NP445DY","NP445DZ","NP445EA","NP445EB","NP445ED","NP445EE","NP445EF","NP445EG","NP445EH","NP445EJ","NP445EL","NP445EN","NP445EP","NP445EQ","NP445ER","NP445ES","NP445ET","NP445EU","NP445EW","NP445EX","NP445EY","NP445EZ","NP445FA","NP445FB","NP445FD","NP445FE","NP445FF","NP445FG","NP445FH","NP445FJ","NP445FL","NP445FN","NP445FP","NP445FQ","NP445FR","NP445FS","NP445FT","NP445FU","NP445HA","NP445HB","NP445HD","NP445HE","NP445HF","NP445HG","NP445HH","NP445HJ","NP445HL","NP445HN","NP445HP","NP445HQ","NP445HR","NP445HS","NP445HT","NP445HU","NP445HW","NP445HX","NP445HY","NP445HZ","NP445JA","NP445JB","NP445JD","NP445JE","NP445JF","NP445JG","NP445JH","NP445JJ","NP445JL","NP445JN","NP445JP","NP445JQ","NP445JR","NP445JS","NP445JT","NP445JU","NP445JW","NP445JX","NP445JY","NP445JZ","NP445LA","NP445LB","NP445LD","NP445LE","NP445LF","NP445LG","NP445LH","NP445LJ","NP445LL","NP445LN","NP445LP","NP445LQ","NP445LR","NP445LS","NP445LT","NP445LU","NP445LW","NP445LX","NP445LY","NP445LZ","NP445NA","NP445NB","NP445ND","NP445NE","NP445NF","NP445NG","NP445NH","NP445NJ","NP445NL","NP445NN","NP445NP","NP445NQ","NP445NR","NP445NS","NP445NT","NP445NU","NP445NW","NP445NX","NP445NY","NP445NZ","NP445PA","NP445PB","NP445PD","NP445PE","NP445PF","NP445PG","NP445PH","NP445PJ","NP445PL","NP445PN","NP445PP","NP445PQ","NP445PR","NP445PS","NP445PT","NP445PU","NP445PW","NP445PX","NP445PY","NP445PZ","NP445QA","NP445QB","NP445QD","NP445QE","NP445QF","NP445QG","NP445QH","NP445QJ","NP445QL","NP445QN","NP445QP","NP445QQ","NP445QR","NP445QS","NP445QT","NP445QU","NP445QW","NP445QX","NP445QY","NP445QZ","NP445RA","NP445RB","NP445RD","NP445RE","NP445RF","NP445RG","NP445RH","NP445RJ","NP445RL","NP445RN","NP445RP","NP445RQ","NP445RR","NP445RS","NP445RT","NP445RU","NP445RW","NP445RX","NP445RY","NP445SA","NP445SB","NP445SD","NP445SE","NP445SF","NP445SG","NP445SH","NP445SJ","NP445SL","NP445SN","NP445SP","NP445SQ","NP445SR","NP445SS","NP445ST","NP445SU","NP445SW","NP445SX","NP445SY","NP445TA","NP445TB","NP445TD","NP445TE","NP445TF","NP445TG","NP445TH","NP445TJ","NP445TL","NP445TN","NP445TP","NP445TQ","NP445TR","NP445TS","NP445TT","NP445TU","NP445TW","NP445TX","NP445TY","NP445TZ","NP445UA","NP445UB","NP445UD","NP445UE","NP445UF","NP445UG","NP445UH","NP445UJ","NP445UL","NP445UN","NP445UP","NP445UQ","NP445UR","NP445US","NP445UT","NP445UU","NP445UW","NP445UX","NP445UY"],
-                mapUrl: "https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/3joLjVtaze4usLfm.png?Expires=1758100505&Signature=JH8GE9pSMwMt9YML1raWirg7OO5YJmOtMx7JGGF5bbIrsPRrXMmjLi8~g25wZp6kbXSzTzpQuJ-a2-U57GvmUGJ4IeGVH5tzk7f6dixHiSWNb6hKOoli62vf9e12pvgZ8js0SGGboocqur0LzX2SGWSdB9QwXm6FYEN8FWo1aqREudkAD7xMLSAJybTYhd0uTnZ8QGzICl6mkE7vjw9T1dJAEay7lbI4udOth~zbMYusPPSASjwvMKxbVwZfg3heLoj2Ac2dOXhNmfzxsshgYb0p0GLgVtoN89yaP7c68iOJu19sihGt3of2edtTnfqq002vljpRBlhSms-XxDmefw__&Key-Pair-Id=K3USGZIKWMDCSX",
-                mapAlt: "Thornhill & Upper Cwmbran Area Map",
-                description: "See projects in Thornhill & Upper Cwmbran and vote!"
-            },
-            'trevethin': {
-                name: 'Trevethin, Penygarn & St. Cadocs',
-                formUrl: 'https://forms.office.com/e/ZAhvh5VnEg',
-                postcodes: ["NP46TB","NP46TE","NP46TF","NP46TL","NP48AX","NP48BB","NP48BD","NP48BG","NP48BN","NP48BP","NP48BQ","NP48BR","NP48BS","NP48BT","NP48BU","NP48BW","NP48BX","NP48BY","NP48BZ","NP48DA","NP48DD","NP48DG","NP48DH","NP48DJ","NP48DL","NP48DN","NP48DP","NP48DQ","NP48DR","NP48DS","NP48DT","NP48DU","NP48DW","NP48DX","NP48DY","NP48DZ","NP48EA","NP48EB","NP48ED","NP48EE","NP48EF","NP48EG","NP48EH","NP48EJ","NP48EL","NP48EN","NP48EP","NP48EW","NP48EY","NP48EZ","NP48FD","NP48GA","NP48HA","NP48HB","NP48HD","NP48HE","NP48HF","NP48HG","NP48HH","NP48HJ","NP48HL","NP48HP","NP48HQ","NP48HR","NP48HS","NP48HT","NP48HU","NP48HW","NP48HX","NP48HY","NP48HZ","NP48JA","NP48JB","NP48JD","NP48JE","NP48JF","NP48JG","NP48JH","NP48JJ","NP48JL","NP48JN","NP48JP","NP48JQ","NP48JR","NP48JS","NP48JT","NP48JU","NP48JW","NP48JX","NP48JY","NP48JZ","NP48LA","NP48LB","NP48LD","NP48LE","NP48LF","NP48LG","NP48LH","NP48LJ","NP48LL","NP48LN","NP48LP","NP48LQ","NP48LR","NP48LS","NP48LT","NP48LU","NP48LW","NP48LX","NP48LY","NP48NA","NP48NB","NP48ND","NP48NE","NP48NF","NP48NG","NP48NH","NP48NJ","NP48NL","NP48NN","NP48NP","NP48NQ","NP48NR","NP48NS","NP48NT","NP48NU","NP48NW","NP48NX","NP48NY","NP48PA","NP48PB","NP48PD","NP48PE","NP48PF","NP48PG","NP48PH","NP48PJ","NP48PL","NP48PN","NP48PP","NP48PQ","NP48PR","NP48PS","NP48PT","NP48PU","NP48PW","NP48PX","NP48PY","NP48PZ","NP48QA","NP48QB","NP48QD","NP48QE","NP48QF","NP48QG","NP48QH","NP48QJ","NP48QL","NP48QN","NP48QP","NP48QQ","NP48QR","NP48QS","NP48QT","NP48QU","NP48QW","NP48QX","NP48QY","NP48RA","NP48RB","NP48RD","NP48RE","NP48RF","NP48RG","NP48RH","NP48RJ","NP48RL","NP48RN","NP48RP","NP48RQ","NP48RR","NP48RS","NP48RT","NP48RU","NP48RW","NP48RX","NP48RY","NP48RZ","NP48SA","NP48SB","NP48SD","NP48SE","NP48SF","NP48SG","NP48SH","NP48SJ","NP48SL","NP48SN","NP48SP","NP48SQ","NP48SR","NP48SS","NP48ST","NP48SU","NP48SW","NP48SX","NP48SY","NP48SZ","NP48TA","NP48TB","NP48TD","NP48TE","NP48TF","NP48TG","NP48TH","NP48TJ","NP48TL","NP48TN","NP48TP","NP48TQ","NP48TR","NP48TS","NP48TT","NP48TU","NP48TW","NP48TX","NP48TY","NP48TZ","NP48UA","NP48UB","NP48UD","NP48UE","NP48UF","NP48UG","NP48UH","NP48UJ","NP48UL","NP48UN","NP48UP","NP48UQ","NP48UR","NP48UT","NP48UU","NP48UW","NP48UX","NP48UY","NP48UZ","NP48WA","NP48WB","NP48WD","NP48WE","NP48WF","NP48WG","NP48WH","NP48WJ","NP48WL","NP48WN","NP48WP","NP48WQ","NP48WR","NP48WS","NP48WT","NP48WU","NP48WW","NP48WX","NP48WY","NP48WZ","NP48XA","NP48XB","NP48XD","NP48XF","NP48XG","NP48XH","NP48XJ","NP48XL","NP48XN","NP48XP","NP48XQ","NP48XR","NP48XS","NP48XT","NP48XU","NP48XW","NP48XX","NP48XY","NP48XZ","NP48YA","NP48YB","NP48YD","NP48YE","NP48YF","NP48YG","NP48YH","NP48YJ","NP48YL","NP48YN","NP48YP","NP48YQ","NP48YR","NP48YS","NP48YT","NP48YU","NP48YW","NP48YX","NP48YY","NP48YZ"],
-                mapUrl: "https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/QJCGbMDvyu4wVjrW.png?Expires=1758100505&Signature=dO2virUuXDAU0UZKzP5LEzc-8hUgGX3qJBUAgjkWl8USaxT~YXr9hTc5xQlfFtvQIQcKPMB7Co2EQ1uPb3n~H1TuDFKL8ieRyXp34-8RLtYmRTToLGc~luAc6vFBdLR9~rygd8GYlbr-FuJdTpbdc-rZa0U6gis3Og7zf0a731~WXeG5S0JJ70V4AnXK-dO5URY5H0ErUWtciVd1faoCcuo6nktLtWii70-C2YsRP207IZxVr9giQrYY5eCJhrdG~9U713Uh5lVJhQHbj1hhqpo1oFspfdv308bODnAKmXNR8JGuCZyfjMMWZODFWMeMMZiA54vDfyrrCNBGT0VyDw__&Key-Pair-Id=K3USGZIKWMDCSX",
-                mapAlt: "Trevethin, Penygarn & St Cadocs Area Map",
-                description: "See projects in this area and vote for your favourite three!"
-            }
+    const areaData = {
+      'blaenavon': {
+          name: 'Blaenavon',
+          formUrl: 'https://forms.office.com/e/FTQ4s8EK84',
+          postcodes: ["NP49AA","NP49AB","NP49AD","NP49AE","NP49AF","NP49AG","NP49AH","NP49AJ","NP49AL","NP49AN","NP49AP","NP49AQ","NP49AR","NP49AS","NP49AT","NP49AU","NP49AW","NP49AX","NP49AY","NP49AZ","NP49BA","NP49BB","NP49BD","NP49BE","NP49BG","NP49BH","NP49BJ","NP49BL","NP49BN","NP49BP","NP49BQ","NP49BS","NP49BT","NP49BU","NP49BW","NP49BX","NP49BY","NP49BZ","NP49DA","NP49DB","NP49DD","NP49DE","NP49DF","NP49DG","NP49DH","NP49DJ","NP49DL","NP49DN","NP49DP","NP49DQ","NP49DR","NP49DS","NP49DT","NP49DU","NP49DW","NP49DX","NP49DY","NP49DZ","NP49EA","NP49EB","NP49ED","NP49EE","NP49EF","NP49EG","NP49EH","NP49EJ","NP49EL","NP49EN","NP49EP","NP49EQ","NP49ER","NP49ES","NP49ET","NP49EU","NP49EW","NP49EX","NP49EY","NP49EZ","NP49FA","NP49FB","NP49FD","NP49FE","NP49FF","NP49FG","NP49FH","NP49FJ","NP49FL","NP49FN","NP49FP","NP49FQ","NP49FR","NP49FS","NP49FT","NP49FU","NP49FW","NP49FX","NP49FY","NP49FZ","NP49GA","NP49GB","NP49GD","NP49GE","NP49GF","NP49GG","NP49GH","NP49GJ","NP49GL","NP49GN","NP49GP","NP49GQ","NP49GR","NP49GS","NP49GT","NP49GU","NP49GW","NP49GX","NP49GY","NP49GZ","NP49HA","NP49HB","NP49HD","NP49HE","NP49HF","NP49HG","NP49HH","NP49HJ","NP49HL","NP49HN","NP49HP","NP49HQ","NP49HR","NP49HS","NP49HT","NP49HU","NP49HW","NP49HX","NP49HY","NP49HZ","NP49JA","NP49JB","NP49JD","NP49JE","NP49JF","NP49JG","NP49JH","NP49JJ","NP49JL","NP49JN","NP49JP","NP49JQ","NP49JR","NP49JS","NP49JT","NP49JU","NP49JW","NP49JX","NP49JY","NP49JZ","NP49LA","NP49LB","NP49LD","NP49LE","NP49LF","NP49LG","NP49LH","NP49LJ","NP49LL","NP49LN","NP49LP","NP49LQ","NP49LR","NP49LS","NP49LT","NP49LU","NP49LW","NP49LX","NP49LY","NP49LZ","NP49NA","NP49NB","NP49ND","NP49NE","NP49NF","NP49NG","NP49NH","NP49NL","NP49NN","NP49NP","NP49NQ","NP49NR","NP49NS","NP49NT","NP49NU","NP49NW","NP49NX","NP49NY","NP49NZ","NP49PA","NP49PB","NP49PD","NP49PE","NP49PF","NP49PG","NP49PH","NP49PJ","NP49PL","NP49PN","NP49PP","NP49PQ","NP49PR","NP49PS","NP49PT","NP49PU","NP49PW","NP49PX","NP49PY","NP49PZ","NP49QA","NP49QB","NP49QD","NP49QE","NP49QF","NP49QG","NP49QH","NP49QJ","NP49QL","NP49QN","NP49QP","NP49QQ","NP49QR","NP49QS","NP49QT","NP49QU","NP49QW","NP49QX","NP49QY","NP49QZ","NP49RA","NP49RB","NP49RD","NP49RE","NP49RF","NP49RG","NP49RH","NP49RJ","NP49RL","NP49RN","NP49RP","NP49RQ","NP49RR","NP49RS","NP49RT","NP49RU","NP49RW","NP49RX","NP49RY","NP49RZ","NP49SA","NP49SB","NP49SD","NP49SE","NP49SF","NP49SG","NP49SJ","NP49SR"]
+      },
+      'thornhill': {
+          name: 'Thornhill & Upper Cwmbran',
+          formUrl: 'https://forms.office.com/e/n0jg5xdAwS',
+          postcodes: ["NP45DQ","NP441AB","NP441AY","NP441AZ","NP441BA","NP441BE","NP441BG","NP441BH","NP441BJ","NP441BL","NP441BN","NP441BP","NP441BS","NP441BT","NP441BU","NP441BW","NP441BX","NP441BY","NP441BZ","NP441DA","NP441DB","NP441DE","NP441DF","NP441DG","NP441DH","NP441DJ","NP441DL","NP441DN","NP441DP","NP441DQ","NP441DR","NP441DS","NP441DT","NP441DU","NP441DW","NP441DX","NP441DY","NP441DZ","NP441EA","NP441EB","NP441ED","NP441EE","NP441EF","NP441EG","NP441EH","NP441EL","NP441EN","NP441EP","NP441EQ","NP441ER","NP441ES","NP441ET","NP441EU","NP441EW","NP441EX","NP441EY","NP441EZ","NP441HA","NP441HB","NP441HD","NP441HE","NP441HF","NP441HG","NP441HH","NP441HJ","NP441HL","NP441HN","NP441HP","NP441HQ","NP441HR","NP441HS","NP441HT","NP441HU","NP441HW","NP441HX","NP441HY","NP441HZ","NP441JA","NP441JB","NP441JD","NP441JE","NP441JF","NP441JG","NP441JH","NP441JJ","NP441JL","NP441JN","NP441JP","NP441JR","NP441JS","NP441JT","NP441JU","NP441JX","NP441LA","NP441LB","NP441LD","NP441LE","NP441LG","NP441LH","NP441LJ","NP441LL","NP441LN","NP441LP","NP441LQ","NP441LR","NP441LS","NP441LT","NP441LU","NP441LW","NP441LX","NP441NA","NP441NB","NP441ND","NP441NE","NP441NF","NP441NG","NP441NH","NP441NJ","NP441NL","NP441NN","NP441NP","NP441NQ","NP441NR","NP441NS","NP441NT","NP441NU","NP441NW","NP441PA","NP441PB","NP441PD","NP441PE","NP441PF","NP441PG","NP441PH","NP441PJ","NP441PL","NP441PN","NP441PP","NP441PQ","NP441PR","NP441PS","NP441PT","NP441PU","NP441PW","NP441PX","NP441PY","NP441PZ","NP441QA","NP441QB","NP441QD","NP441QE","NP441QF","NP441QG","NP441QH","NP441QJ","NP441QL","NP441QP","NP441QQ","NP441QR","NP441QS","NP441QT","NP441QU","NP441QW","NP441QX","NP441QY","NP441QZ","NP441RA","NP441RB","NP441RD","NP441RE","NP441RF","NP441RG","NP441RH","NP441RJ","NP441RL","NP441RN","NP441RP","NP441RQ","NP441RR","NP441RS","NP441RT","NP441RU","NP441RW","NP441RX","NP441RY","NP441RZ","NP441SA","NP441SB","NP441SD","NP441SE","NP441SF","NP441SG","NP441SH","NP441SJ","NP441SL","NP441SN","NP441SP","NP441SQ","NP441SR","NP441SS","NP441ST","NP441SU","NP441SW","NP441SX","NP441SY","NP441SZ","NP441TA","NP441TB","NP441TD","NP441TE","NP441TF","NP441TG","NP441TH","NP441TJ","NP441TL","NP441TN","NP441TP","NP441TQ","NP441TR","NP441TS","NP441TT","NP441TU","NP441TW","NP441TX","NP441TY","NP441UA","NP441WA","NP441WB","NP442EB","NP442RX","NP442SB","NP444TQ","NP445AA","NP445AB","NP445AD","NP445AE","NP445AF","NP445AG","NP445AH","NP445AJ","NP445AL","NP445AN","NP445AP","NP445AQ","NP445AR","NP445AS","NP445AT","NP445AU","NP445AW","NP445AX","NP445AY","NP445AZ","NP445BA","NP445BB","NP445BD","NP445BE","NP445BF","NP445BG","NP445BH","NP445BJ","NP445BL","NP445BN","NP445BP","NP445BQ","NP445BS","NP445BT","NP445BU","NP445BW","NP445BX","NP445BY","NP445BZ","NP445DA","NP445DB","NP445DD","NP445DE","NP445DF","NP445DG","NP445DH","NP445DJ","NP445DL","NP445DN","NP445DP","NP445DQ","NP445DR","NP445DS","NP445DT","NP445DU","NP445DW","NP445DX","NP445DY","NP445DZ","NP445EA","NP445EB","NP445ED","NP445EE","NP445EF","NP445EG","NP445EH","NP445EJ","NP445EL","NP445EN","NP445EP","NP445EQ","NP445ER","NP445ES","NP445ET","NP445EU","NP445EW","NP445EX","NP445EY","NP445EZ","NP445FA","NP445FB","NP445FD","NP445FE","NP445FF","NP445FG","NP445FH","NP445FJ","NP445FL","NP445FN","NP445FP","NP445FQ","NP445FR","NP445FS","NP445FT","NP445FU","NP445HA","NP445HB","NP445HD","NP445HE","NP445HF","NP445HG","NP445HH","NP445HJ","NP445HL","NP445HN","NP445HP","NP445HQ","NP445HR","NP445HS","NP445HT","NP445HU","NP445HW","NP445HX","NP445HY","NP445HZ","NP445JA","NP445JB","NP445JD","NP445JE","NP445JF","NP445JG","NP445JH","NP445JJ","NP445JL","NP445JN","NP445JP","NP445JQ","NP445JR","NP445JS","NP445JT","NP445JU","NP445JW","NP445JX","NP445JY","NP445JZ","NP445LA","NP445LB","NP445LD","NP445LE","NP445LF","NP445LG","NP445LH","NP445LJ","NP445LL","NP445LN","NP445LP","NP445LQ","NP445LR","NP445LS","NP445LT","NP445LU","NP445LW","NP445LX","NP445LY","NP445LZ","NP445NA","NP445NB","NP445ND","NP445NE","NP445NF","NP445NG","NP445NH","NP445NJ","NP445NL","NP445NN","NP445NP","NP445NQ","NP445NR","NP445NS","NP445NT","NP445NU","NP445NW","NP445NX","NP445NY","NP445NZ","NP445PA","NP445PB","NP445PD","NP445PE","NP445PF","NP445PG","NP445PH","NP445PJ","NP445PL","NP445PN","NP445PP","NP445PQ","NP445PR","NP445PS","NP445PT","NP445PU","NP445PW","NP445PX","NP445PY","NP445PZ","NP445QA","NP445QB","NP445QD","NP445QE","NP445QF","NP445QG","NP445QH","NP445QJ","NP445QL","NP445QN","NP445QP","NP445QQ","NP445QR","NP445QS","NP445QT","NP445QU","NP445QW","NP445QX","NP445QY","NP445QZ","NP445RA","NP445RB","NP445RD","NP445RE","NP445RF","NP445RG","NP445RH","NP445RJ","NP445RL","NP445RN","NP445RP","NP445RQ","NP445RR","NP445RS","NP445RT","NP445RU","NP445RW","NP445RX","NP445RY","NP445SA","NP445SB","NP445SD","NP445SE","NP445SF","NP445SG","NP445SH","NP445SJ","NP445SL","NP445SN","NP445SP","NP445SQ","NP445SR","NP445SS","NP445ST","NP445SU","NP445SW","NP445SX","NP445SY","NP445TA","NP445TB","NP445TD","NP445TE","NP445TF","NP445TG","NP445TH","NP445TJ","NP445TL","NP445TN","NP445TP","NP445TQ","NP445TR","NP445TS","NP445TT","NP445TU","NP445TW","NP445TX","NP445TY","NP445TZ","NP445UA","NP445UB","NP445UD","NP445UE","NP445UF","NP445UG","NP445UH","NP445UJ","NP445UL","NP445UN","NP445UP","NP445UQ","NP445UR","NP445US","NP445UT","NP445UU","NP445UW","NP445UX","NP445UY"]
+      },
+      'trevethin': {
+          name: 'Trevethin, Penygarn & St. Cadocs',
+          formUrl: 'https://forms.office.com/e/ZAhvh5VnEg',
+          postcodes: ["NP46TB","NP46TE","NP46TF","NP46TL","NP48AX","NP48BB","NP48BD","NP48BG","NP48BN","NP48BP","NP48BQ","NP48BR","NP48BS","NP48BT","NP48BU","NP48BW","NP48BX","NP48BY","NP48BZ","NP48DA","NP48DD","NP48DG","NP48DH","NP48DJ","NP48DL","NP48DN","NP48DP","NP48DQ","NP48DR","NP48DS","NP48DT","NP48DU","NP48DW","NP48DX","NP48DY","NP48DZ","NP48EA","NP48EB","NP48ED","NP48EE","NP48EF","NP48EG","NP48EH","NP48EJ","NP48EL","NP48EN","NP48EP","NP48EW","NP48EY","NP48EZ","NP48FD","NP48GA","NP48HA","NP48HB","NP48HD","NP48HE","NP48HF","NP48HG","NP48HH","NP48HJ","NP48HL","NP48HP","NP48HQ","NP48HR","NP48HS","NP48HT","NP48HU","NP48HW","NP48HX","NP48HY","NP48HZ","NP48JA","NP48JB","NP48JD","NP48JE","NP48JF","NP48JG","NP48JH","NP48JJ","NP48JL","NP48JN","NP48JP","NP48JQ","NP48JR","NP48JS","NP48JT","NP48JU","NP48JW","NP48JX","NP48JY","NP48JZ","NP48LA","NP48LB","NP48LD","NP48LE","NP48LF","NP48LG","NP48LH","NP48LJ","NP48LL","NP48LN","NP48LP","NP48LQ","NP48LR","NP48LS","NP48LT","NP48LU","NP48LW","NP48LX","NP48LY","NP48NA","NP48NB","NP48ND","NP48NE","NP48NF","NP48NG","NP48NH","NP48NJ","NP48NL","NP48NN","NP48NP","NP48NQ","NP48NR","NP48NS","NP48NT","NP48NU","NP48NW","NP48NX","NP48NY","NP48PA","NP48PB","NP48PD","NP48PE","NP48PF","NP48PG","NP48PH","NP48PJ","NP48PL","NP48PN","NP48PP","NP48PQ","NP48PR","NP48PS","NP48PT","NP48PU","NP48PW","NP48PX","NP48PY","NP48PZ","NP48QA","NP48QB","NP48QD","NP48QE","NP48QF","NP48QG","NP48QH","NP48QJ","NP48QL","NP48QN","NP48QP","NP48QQ","NP48QR","NP48QS","NP48QT","NP48QU","NP48QW","NP48QX","NP48QY","NP48RA","NP48RB","NP48RD","NP48RE","NP48RF","NP48RG","NP48RH","NP48RJ","NP48RL","NP48RN","NP48RP","NP48RQ","NP48RR","NP48RS","NP48RT","NP48RU","NP48RW","NP48RX","NP48RY","NP48RZ","NP48SA","NP48SB","NP48SD","NP48SE","NP48SF","NP48SG","NP48SH","NP48SJ","NP48SL","NP48SN","NP48SP","NP48SQ","NP48SR","NP48SS","NP48ST","NP48SU","NP48SW","NP48SX","NP48SY","NP48SZ","NP48TA","NP48TB","NP48TD","NP48TE","NP48TF","NP48TG","NP48TH","NP48TJ","NP48TL","NP48TN","NP48TP","NP48TQ","NP48TR","NP48TS","NP48TT","NP48TU","NP48TW","NP48TX","NP48TY","NP48TZ","NP48UA","NP48UB","NP48UD","NP48UE","NP48UF","NP48UG","NP48UH","NP48UJ","NP48UL","NP48UN","NP48UP","NP48UQ","NP48UR","NP48UT","NP48UU","NP48UW","NP48UX","NP48UY","NP48UZ","NP48WA","NP48WB","NP48WD","NP48WE","NP48WF","NP48WG","NP48WH","NP48WJ","NP48WL","NP48WN","NP48WP","NP48WQ","NP48WR","NP48WS","NP48WT","NP48WU","NP48WW","NP48WX","NP48WY","NP48WZ","NP48XA","NP48XB","NP48XD","NP48XF","NP48XG","NP48XH","NP48XJ","NP48XL","NP48XN","NP48XP","NP48XQ","NP48XR","NP48XS","NP48XT","NP48XU","NP48XW","NP48XX","NP48XY","NP48XZ","NP48YA","NP48YB","NP48YD","NP48YE","NP48YF","NP48YG","NP48YH","NP48YJ","NP48YL","NP48YN","NP48YP","NP48YQ","NP48YR","NP48YS","NP48YT","NP48YU","NP48YW","NP48YX","NP48YY","NP48YZ"]
+      }
+    };
+
+    const prioritiesData = {
+        blaenavon: {
+            totalResponses: 254,
+            priorities: [
+                { name: "Youth Services & Activities", score: 120, description: "Providing more engaging activities and dedicated spaces for young people to socialise and learn new skills." },
+                { name: "Transport", score: 104, description: "Improving local transport links and accessibility to make it easier for residents to travel for work, health, and leisure." },
+                { name: "Antisocial Behaviour", score: 70, description: "Tackling issues of vandalism and disruptive behaviour to create a safer environment for everyone." },
+                { name: "Health & Wellbeing", score: 61, description: "Supporting mental and physical health through community initiatives, workshops, and access to services." },
+                { name: "Environment & Place (Maintenance)", score: 56, description: "Enhancing the local environment by maintaining public spaces, improving parks, and tackling litter." },
+                { name: "Heritage & Tourism", score: 48, description: "Celebrating and promoting Blaenavon's rich history to boost local pride and attract visitors." }
+            ]
         },
-        priorities: {
-            blaenavon: {
-                totalResponses: 254,
-                priorities: [
-                    { name: "Youth Services & Activities", score: 120, description: "Providing more engaging activities and dedicated spaces for young people to socialise and learn new skills." },
-                    { name: "Transport", score: 104, description: "Improving local transport links and accessibility to make it easier for residents to travel for work, health, and leisure." },
-                    { name: "Antisocial Behaviour", score: 70, description: "Tackling issues of vandalism and disruptive behaviour to create a safer environment for everyone." },
-                    { name: "Health & Wellbeing", score: 61, description: "Supporting mental and physical health through community initiatives, workshops, and access to services." },
-                    { name: "Environment & Place (Maintenance)", score: 56, description: "Enhancing the local environment by maintaining public spaces, improving parks, and tackling litter." },
-                    { name: "Heritage & Tourism", score: 48, description: "Celebrating and promoting Blaenavon's rich history to boost local pride and attract visitors." }
-                ]
-            },
-            thornhill: {
-                totalResponses: 382,
-                priorities: [
-                    { name: "Health & Wellbeing", score: 140, description: "Focusing on initiatives that support both the mental and physical health of the community residents." },
-                    { name: "Youth Services & Activities", score: 129, description: "Creating positive opportunities and safe spaces for young people to thrive." },
-                    { name: "Environmental Sustainability", score: 75, description: "Promoting green initiatives, recycling, and protecting local natural spaces for future generations." },
-                    { name: "Building Stronger Communities", score: 74, description: "Fostering a sense of belonging and connection through local events and collaborative projects." },
-                    { name: "Antisocial Behaviour", score: 28, description: "Addressing concerns about safety and nuisance to improve the quality of life for all residents." },
-                    { name: "Education & Skills", score: 23, description: "Providing learning opportunities for all ages, from digital literacy to practical life skills." }
-                ]
-            },
-            trevethin: {
-                totalResponses: 426,
-                priorities: [
-                    { name: "Environment & Place (Maintenance)", score: 140, description: "Improving the appearance and usability of public spaces through better maintenance and community clean-ups." },
-                    { name: "Youth Services & Activities", score: 129, description: "Investing in facilities and programmes that offer constructive and engaging activities for young people." },
-                    { name: "Health & Wellbeing", score: 120, description: "Promoting healthy lifestyles and providing accessible support for the physical and mental wellbeing of residents." },
-                    { name: "Older People's Activities", score: 100, description: "Creating social opportunities and activities to combat isolation and support the older members of our community." },
-                    { name: "Crime & Community Safety", score: 75, description: "Working together to reduce crime and improve safety, making the area a more secure place to live." },
-                    { name: "Education & Skills", score: 74, description: "Offering programmes that help residents of all ages to learn new skills and improve their opportunities." }
-                ]
-            }
+        thornhill: {
+            totalResponses: 382,
+            priorities: [
+                { name: "Health & Wellbeing", score: 140, description: "Focusing on initiatives that support both the mental and physical health of the community residents." },
+                { name: "Youth Services & Activities", score: 129, description: "Creating positive opportunities and safe spaces for young people to thrive." },
+                { name: "Environmental Sustainability", score: 75, description: "Promoting green initiatives, recycling, and protecting local natural spaces for future generations." },
+                { name: "Building Stronger Communities", score: 74, description: "Fostering a sense of belonging and connection through local events and collaborative projects." },
+                { name: "Antisocial Behaviour", score: 28, description: "Addressing concerns about safety and nuisance to improve the quality of life for all residents." },
+                { name: "Education & Skills", score: 23, description: "Providing learning opportunities for all ages, from digital literacy to practical life skills." }
+            ]
+        },
+        trevethin: {
+            totalResponses: 426,
+            priorities: [
+                { name: "Environment & Place (Maintenance)", score: 140, description: "Improving the appearance and usability of public spaces through better maintenance and community clean-ups." },
+                { name: "Youth Services & Activities", score: 129, description: "Investing in facilities and programmes that offer constructive and engaging activities for young people." },
+                { name: "Health & Wellbeing", score: 120, description: "Promoting healthy lifestyles and providing accessible support for the physical and mental wellbeing of residents." },
+                { name: "Older People's Activities", score: 100, description: "Creating social opportunities and activities to combat isolation and support the older members of our community." },
+                { name: "Crime & Community Safety", score: 75, description: "Working together to reduce crime and improve safety, making the area a more secure place to live." },
+                { name: "Education & Skills", score: 74, description: "Offering programmes that help residents of all ages to learn new skills and improve their opportunities." }
+            ]
         }
     };
     
@@ -1208,6 +1210,8 @@
     let activeMilestoneIndex = 0;
     let prioritiesChart = null;
     let currentScoringState = {};
+    let isDraggingPdfViewer = false;
+    let pdfViewerOffsetX, pdfViewerOffsetY;
 
     let app;
     let auth;
@@ -1217,51 +1221,21 @@
     let taskListenerUnsubscribe = null; 
     let adminDashboardUnsubscribe = null;
     let masterTrackerUnsubscribe = null;
-    let confirmationCallback = null;
 
     // ---------------
-    // MODAL & UI HELPERS
+    // MODAL & GUIDE
     // ---------------
     function openGuideModal() {
-        document.getElementById('guide-modal')?.classList.remove('hidden');
-        document.documentElement.classList.add('modal-open');
+        const modal = document.getElementById('guide-modal');
+        if(modal) modal.classList.remove('hidden');
     }
+    window.openGuideModal = openGuideModal;
 
     function closeGuideModal() {
-        document.getElementById('guide-modal')?.classList.add('hidden');
-        document.documentElement.classList.remove('modal-open');
+        const modal = document.getElementById('guide-modal');
+        if(modal) modal.classList.add('hidden');
     }
-
-    // AMENDMENT: Replaced browser confirm() with a non-blocking custom modal for better UX.
-    function showConfirmationModal(message, onConfirmCallback) {
-        document.getElementById('confirmation-modal-message').textContent = message;
-        confirmationCallback = onConfirmCallback;
-        document.getElementById('confirmation-modal').classList.remove('hidden');
-        document.documentElement.classList.add('modal-open');
-    }
-
-    function hideConfirmationModal() {
-        document.getElementById('confirmation-modal').classList.add('hidden');
-        document.documentElement.classList.remove('modal-open');
-        confirmationCallback = null;
-    }
-
-    function handleConfirm() {
-        if (typeof confirmationCallback === 'function') {
-            confirmationCallback();
-        }
-        hideConfirmationModal();
-    }
-    
-    // AMENDMENT: Replaced browser alert() with a non-blocking custom modal for better UX.
-    function showMessage(message, title = "Alert") {
-         showConfirmationModal(message, null);
-         document.getElementById('confirmation-modal-title').textContent = title;
-         document.getElementById('confirmation-modal-cancel').style.display = 'none';
-         document.getElementById('confirmation-modal-confirm').textContent = "OK";
-         document.getElementById('confirmation-modal-confirm').onclick = hideConfirmationModal;
-    }
-
+    window.closeGuideModal = closeGuideModal;
 
     // ---------------
     // PAGE NAVIGATION & AUTH
@@ -1283,6 +1257,7 @@
         }
         window.scrollTo(0, 0);
     }
+    window.showPage = showPage;
     
      function showPortalPage(pageId) {
         if (!currentUserProfile) {
@@ -1296,10 +1271,8 @@
 
         const isAdmin = currentUserProfile.role === 'admin';
         document.getElementById('nav-portal-home').onclick = () => showPortalPage(isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard');
-        
-        // AMENDMENT: Simplified back button logic
         document.querySelectorAll('.back-to-dashboard').forEach(btn => {
-            btn.dataset.portalPage = isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard';
+            btn.onclick = () => showPortalPage(isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard');
         });
 
         if (pageId === 'page-scoring') initializeScoringMatrix();
@@ -1309,6 +1282,7 @@
         
         window.scrollTo(0, 0);
     }
+    window.showPortalPage = showPortalPage;
 
     async function login() {
         const usernameInput = document.getElementById('login-username');
@@ -1341,6 +1315,7 @@
             messageDiv.className = 'mt-4 text-center font-semibold text-red-600 h-6';
         }
     }
+    window.login = login;
     
     async function logout() {
         if (taskListenerUnsubscribe) taskListenerUnsubscribe();
@@ -1356,59 +1331,38 @@
         document.getElementById('portal-nav').style.display = 'none';
         showPage('page-landing');
     }
+    window.logout = logout;
 
     async function handleAuthState(user) {
         if (user) {
             try {
-                // Derive username from synthetic email pattern "<username>@users.local"
-                const uname = (user.email || '').replace('@users.local','');
-                
-                // First try: lookup by username field
-                const cmRef = collection(db, 'committeeMembers');
-                const q = query(cmRef, where('username', '==', uname));
-                const snap = await getDocs(q);
+                const userDocRef = doc(db, 'committeeMembers', user.uid);
+                const userDocSnap = await getDoc(userDocRef);
 
-                let profileDoc = null;
-                if (!snap.empty) {
-                    profileDoc = snap.docs[0];
-                } else {
-                    // Fallback: lookup by UID document id for backwards compatibility
-                    const byUidRef = doc(db, 'committeeMembers', user.uid);
-                    const byUidSnap = await getDoc(byUidRef);
-                    if (byUidSnap.exists()) profileDoc = byUidSnap;
-                }
-
-                if (profileDoc) {
-                    currentUserProfile = profileDoc.data();
-
-                    // Swap navigation bars
+                if (userDocSnap.exists()) {
+                    currentUserProfile = userDocSnap.data();
+                    
                     document.getElementById('main-nav').style.display = 'none';
                     document.getElementById('portal-nav').style.display = 'flex';
                     document.getElementById('user-info').textContent = `Welcome, ${currentUserProfile.name}`;
-
-                    // Gate admin items
                     document.querySelectorAll('.admin-only').forEach(el => {
                         el.style.display = currentUserProfile.role === 'admin' ? 'block' : 'none';
                     });
-
-                    // Land on the correct dashboard
                     showPortalPage(currentUserProfile.role === 'admin' ? 'page-admin-dashboard' : 'page-portal-dashboard');
                 } else {
-                    console.error("Authenticated but no profile found for", uname, user.uid);
-                    showMessage("Login was successful, but we couldn't load your profile. Please contact an administrator.", "Profile Error");
+                    console.error("No profile found for user:", user.uid);
+                    alert("Your account is authenticated, but no user profile was found in the database. Please contact an administrator.");
                     await logout();
                 }
-            } catch (err) {
-                console.error("Error fetching profile:", err);
-                showMessage("Login was successful, but there was an error fetching your user profile. This is likely due to Firestore Security Rules or a missing profile. Please contact an administrator.", "Profile Error");
+            } catch (error) {
+                console.error("Error fetching user profile from Firestore:", error);
+                alert("Login was successful, but there was an error fetching your user profile. This is likely due to Firestore Security Rules. Please see the 'firestore_rules.txt' file for the correct rules to apply in your Firebase project.");
                 await logout();
             }
         } else {
-            // Signed out: show public nav and landing page
             currentUserProfile = null;
-            document.getElementById('portal-nav').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
-            
+            document.getElementById('portal-nav').style.display = 'none';
             // If the user is on a portal page when they get logged out, redirect them.
             const currentPage = document.querySelector('.portal-page[style*="block"]');
             if (currentPage) {
@@ -1458,6 +1412,7 @@
             areaSelect.value = areaKey;
         }
     }
+    window.goToVotePage = goToVotePage;
     
     // -----------------------
     // POSTCODE CHECKER
@@ -1481,7 +1436,7 @@
       }
 
       const normalizedPostcode = rawPostcode.trim().toUpperCase().replace(/\s+/g, '');
-      const selectedAreaData = siteData.areas[selectedAreaKey];
+      const selectedAreaData = areaData[selectedAreaKey];
 
       if (selectedAreaData && selectedAreaData.postcodes.includes(normalizedPostcode)) {
         messageDiv.textContent = 'Postcode verified! Redirecting...';
@@ -1494,17 +1449,18 @@
         messageDiv.className = 'mt-4 text-center font-semibold text-red-600';
       }
     }
+    window.checkPostcode = checkPostcode;
 
     // -----------------------
     // PRIORITIES PAGE
     // -----------------------
     function showPriorityArea(areaKey) {
         const contentDiv = document.getElementById('priorities-content');
-        const data = siteData.priorities[areaKey];
+        const data = prioritiesData[areaKey];
         if (!data) return;
 
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`#priorities-tabs button[data-area="${areaKey}"]`).classList.add('active');
+        document.getElementById(`tab-${areaKey}`).classList.add('active');
 
         let priorityCardsHtml = data.priorities.map((p, index) => `
             <div class="priority-card rounded-xl shadow-lg p-6">
@@ -1519,7 +1475,7 @@
         contentDiv.innerHTML = `
             <div class="grid md:grid-cols-12 gap-8">
                 <div class="md:col-span-5 lg:col-span-4 bg-white p-6 rounded-xl shadow-xl">
-                    <h2 class="text-2xl font-bold text-purple-700 mb-4 dynapuff">${siteData.areas[areaKey].name}</h2>
+                    <h2 class="text-2xl font-bold text-purple-700 mb-4 dynapuff">${areaData[areaKey].name}</h2>
                     <p class="text-gray-700 arial-nova mb-4">A total of <strong>${data.totalResponses} responses</strong> were gathered from this area, highlighting the key concerns and hopes of the community.</p>
                     <div class="h-64 lg:h-80"><canvas id="prioritiesChart"></canvas></div>
                 </div>
@@ -1532,6 +1488,7 @@
         `;
         renderPrioritiesChart(data);
     }
+    window.showPriorityArea = showPriorityArea;
 
     function renderPrioritiesChart(data) {
         if (prioritiesChart) {
@@ -1599,10 +1556,7 @@
         milestone.className = `milestone ${isAbove ? 'above' : 'below'} ${activeMilestoneIndex === idx ? 'active' : (idx < activeMilestoneIndex ? 'completed' : 'upcoming')}`;
         milestone.style.left = `calc(${leftPercent}% - (18px * var(--timeline-scale)))`;
         milestone.setAttribute('aria-label', event.label);
-        
-        // AMENDMENT: Replaced onclick with addEventListener
         milestone.addEventListener('click', () => showMilestoneDetail(idx));
-
         bar.appendChild(milestone);
 
         const connector = document.createElement('div');
@@ -1857,6 +1811,7 @@
             listContainer.appendChild(button);
         });
     }
+    window.populateAppsViewerList = populateAppsViewerList;
 
 
     function viewApplication(ref) {
@@ -1875,6 +1830,7 @@
              <iframe src="${pdfUrl}" class="w-full h-full" title="PDF viewer for ${app.applicant}"></iframe>
         `;
     }
+    window.viewApplication = viewApplication;
 
     function openPdfViewerForCurrentApp() {
         const ref = document.getElementById('scoring-ref').value;
@@ -1895,6 +1851,7 @@
         }
         viewer.classList.remove('hidden');
     }
+    window.openPdfViewerForCurrentApp = openPdfViewerForCurrentApp;
 
     function closePdfViewer() {
         const viewer = document.getElementById('pdf-viewer-window');
@@ -1902,6 +1859,7 @@
         iframe.src = 'about:blank'; 
         viewer.classList.add('hidden');
     }
+    window.closePdfViewer = closePdfViewer;
     
     function makePdfViewerDraggable() {
         const viewer = document.getElementById('pdf-viewer-window');
@@ -1954,6 +1912,7 @@
         document.getElementById('scoring-ref').value = ref;
         document.getElementById('scoring-ref').dispatchEvent(new Event('change'));
     }
+    window.loadTask = loadTask;
 
     function renderTaskList(userScores = []) {
         const container = document.getElementById('task-list-content');
@@ -1984,8 +1943,7 @@
             } else {
                 statusBadge = '<span class="text-xs font-bold text-red-600 bg-red-100 px-2 py-1 rounded-full">Pending</span>';
             }
-            // AMENDMENT: Replaced onclick with a data attribute for event delegation
-            return `<button data-task-ref="${app.ref}" class="w-full text-left p-2 rounded-md task-list-button"><div class="flex justify-between items-center"><span class="text-sm">${app.ref} - ${app.applicant}</span>${statusBadge}</div></button>`;
+            return `<button onclick="loadTask('${app.ref}')" class="w-full text-left p-2 rounded-md task-list-button"><div class="flex justify-between items-center"><span class="text-sm">${app.ref} - ${app.applicant}</span>${statusBadge}</div></button>`;
         }).join('');
         
         container.innerHTML = tasksHtml;
@@ -2000,17 +1958,18 @@
     
     // Admin Master Tracker
     async function deleteScore(docId) {
-        showConfirmationModal(`Are you sure you want to PERMANENTLY delete this score? This action cannot be undone.`, async () => {
-             try {
+        if (confirm(`Are you sure you want to PERMANENTLY delete this score? This action cannot be undone.`)) {
+            try {
                 const docRef = doc(scoresCollectionRef, docId);
                 await deleteDoc(docRef);
                 console.log("Score deleted successfully");
             } catch (error) {
                 console.error("Error deleting score: ", error);
-                showMessage("Failed to delete score. See console for details.", "Error");
+                alert("Failed to delete score. See console for details.");
             }
-        });
+        }
     }
+    window.deleteScore = deleteScore;
 
     function initializeMasterTracker() {
         if (masterTrackerUnsubscribe) masterTrackerUnsubscribe();
@@ -2049,7 +2008,7 @@
                         <span class="font-semibold text-gray-700">${s.scorerName}</span>
                         <span class="font-bold text-purple-700 ml-4">${s.totalScore} / 100</span>
                     </div>
-                    <button data-delete-id="${s.id}" class="delete-score-btn text-red-500 hover:text-red-700 p-1 rounded-full transition-colors" title="Delete this score"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                    <button onclick="deleteScore('${s.id}')" class="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors" title="Delete this score"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                 </div>
             `).join('');
 
@@ -2176,7 +2135,21 @@
             tbody.appendChild(row);
         });
 
-        // Event listeners are now attached in the main setup function using delegation
+        tbody.querySelectorAll('input[type="range"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const id = e.target.dataset.id;
+                const score = parseInt(e.target.value, 10);
+                e.target.nextElementSibling.textContent = score;
+                updateScore(id, score);
+            });
+        });
+        tbody.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', (e) => {
+                const id = e.target.dataset.id;
+                const notes = e.target.value;
+                updateNotes(id, notes);
+            });
+        });
     }
 
     function updateScore(criterionId, score) {
@@ -2246,11 +2219,11 @@
 
     async function postFinalScores() {
         if (!currentScoringState.ref || !currentUserProfile) {
-            showMessage('Please select an application first.', 'Action Required');
+            alert('Please select an application first.');
             return;
         }
 
-        showConfirmationModal(`Are you sure you want to post these scores as FINAL for ${currentScoringState.ref}? You will not be able to edit them after posting.`, async () => {
+        if (confirm(`Are you sure you want to post these scores as FINAL for ${currentScoringState.ref}? You will not be able to edit them after posting.`)) {
             const docId = `${auth.currentUser.uid}_${currentScoringState.ref}`;
             const docRef = doc(scoresCollectionRef, docId);
             const totalScore = Math.round(currentScoringState.criteria.reduce((acc, c) => acc + ((c.score || 0) / 3) * c.weight, 0));
@@ -2271,18 +2244,18 @@
                 loadScoresForRef(currentScoringState.ref);
             } catch (error) {
                 console.error("Error posting final scores: ", error);
-                showMessage("Failed to post scores. See console for details.", "Error");
+                alert("Failed to post scores. See console for details.");
             }
-        });
+        }
     }
 
     async function clearCurrentForm() {
         const ref = document.getElementById('scoring-ref').value;
         if (!ref || !currentUserProfile) {
-            showMessage("Please select an application first.", "Action Required");
+            alert("Please select an application first.");
             return;
         }
-        showConfirmationModal(`Are you sure you want to clear all scores and notes for ${ref}? This will be permanently deleted.`, async () => {
+        if(confirm(`Are you sure you want to clear all scores and notes for ${ref}? This will be permanently deleted.`)) {
             const docId = `${auth.currentUser.uid}_${ref}`;
             const docRef = doc(scoresCollectionRef, docId);
             try {
@@ -2290,36 +2263,14 @@
                 handleAppSelection(ref); // Reload to show cleared form
             } catch (error) {
                 console.error("Error clearing form: ", error);
-                showMessage("Failed to clear form. See console for details.", "Error");
+                alert("Failed to clear form. See console for details.");
             }
-        });
+        }
     }
     
     function exportMasterTrackerToCSV() {
-        showMessage("Export functionality to be implemented using Firestore data.", "Info");
+        alert("Export functionality to be implemented using Firestore data.");
     }
-    
-    // AMENDMENT: Populates the carousel dynamically from the siteData object.
-    function populateCarousel() {
-        const wrapper = document.getElementById('carousel-wrapper');
-        if (!wrapper) return;
-        
-        const slidesHtml = Object.keys(siteData.areas).map(key => {
-            const area = siteData.areas[key];
-            return `
-              <div class="swiper-slide">
-                <img src="${area.mapUrl}" alt="${area.mapAlt}" class="area-img" />
-                <h3 class="text-2xl font-semibold text-purple-700 mb-2 dynapuff">${area.name}</h3>
-                <p class="text-gray-700 mb-4 arial-nova">${area.description}</p>
-                <button data-votepage="${key}" class="vote-button bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
-                  View & Vote
-                </button>
-              </div>
-            `;
-        }).join('');
-        wrapper.innerHTML = slidesHtml;
-    }
-
 
     // ----------------
     // INITIALIZATION
@@ -2341,32 +2292,13 @@
       db = getFirestore(app);
       setLogLevel('debug');
       
-      /* =======================================================================================
-         SECURITY AND DATA STRUCTURE ADVISORY
-      ==========================================================================================
-        The current Firestore structure uses a single root collection 'scores' for all user data.
-        While functional, this poses a security risk if your Firestore Security Rules are not 
-        perfectly configured. Anyone with read access to 'scores' could potentially access all
-        scoring data.
-
-        A more secure, recommended structure would be to nest scores within each user's document:
-        /committeeMembers/{userId}/scores/{applicationRef}
-
-        To implement this, you would change the collection reference to:
-        `collection(db, 'committeeMembers', user.uid, 'scores')`
-
-        For admins to view all scores with this nested structure, you would need to use a 
-        'Collection Group Query' on the 'scores' collection, which requires a specific index
-        to be created in your Firestore settings. This is a more advanced but much more secure
-        approach. The current implementation remains for simplicity and to avoid breaking an
-        existing setup, but this change is highly recommended for a production environment.
-      ======================================================================================= */
+      // Note: The collection path for scores is now at the root as per user's latest setup.
+      // This is less secure and might require adjusting security rules.
       scoresCollectionRef = collection(db, 'scores'); 
 
       onAuthStateChanged(auth, handleAuthState);
       
       // --- UI Initial Setup ---
-      populateCarousel();
       showPage('page-landing');
 
       const demoDate = new Date();
@@ -2384,72 +2316,63 @@
       renderTimelineBar();
       setTimeout(() => showMilestoneDetail(activeMilestoneIndex), 100);
       makePdfViewerDraggable();
-      
-      // --- EVENT LISTENER SETUP (Replaces all `onclick` attributes) ---
-      document.body.addEventListener('click', (e) => {
-          // Main Navigation
-          if (e.target.matches('#main-nav button[data-page]')) {
-              showPage(e.target.dataset.page);
-          }
-          // Portal Navigation & Dashboard Cards
-          if (e.target.closest('[data-portal-page]')) {
-              showPortalPage(e.target.closest('[data-portal-page]').dataset.portalPage);
-          }
-          // Carousel Vote Buttons
-          if (e.target.matches('.vote-button[data-votepage]')) {
-              goToVotePage(e.target.dataset.votepage);
-          }
-          // Priorities Tabs
-          if (e.target.matches('#priorities-tabs button[data-area]')) {
-              showPriorityArea(e.target.dataset.area);
-          }
-          // Scoring Task List
-          if (e.target.closest('button[data-task-ref]')) {
-              loadTask(e.target.closest('button[data-task-ref]').dataset.taskRef);
-          }
-          // Admin Delete Score Button
-          if (e.target.closest('.delete-score-btn[data-delete-id]')) {
-              deleteScore(e.target.closest('.delete-score-btn').dataset.deleteId);
-          }
-      });
-      
-      document.getElementById('check-postcode-btn').addEventListener('click', checkPostcode);
-      document.getElementById('login-button').addEventListener('click', login);
-      document.getElementById('logout-button').addEventListener('click', logout);
 
-      // PDF Viewer & Modals
-      document.getElementById('close-pdf-viewer-btn').addEventListener('click', closePdfViewer);
-      document.getElementById('open-guide-button').addEventListener('click', openGuideModal);
-      document.getElementById('close-guide-modal-btn').addEventListener('click', closeGuideModal);
-      document.getElementById('guide-modal').addEventListener('click', (e) => { if(e.target === e.currentTarget) closeGuideModal() });
-      document.getElementById('confirmation-modal-cancel').addEventListener('click', hideConfirmationModal);
-      document.getElementById('confirmation-modal-confirm').addEventListener('click', handleConfirm);
-      
-      // Scoring Matrix Inputs (Delegation)
-      const scoringBody = document.getElementById('scoring-matrix-body');
-      scoringBody.addEventListener('input', (e) => {
-          if (e.target.matches('input.score-slider[data-id]')) {
-              const id = e.target.dataset.id;
-              const score = parseInt(e.target.value, 10);
-              e.target.nextElementSibling.textContent = score;
-              updateScore(id, score);
-          }
-          if (e.target.matches('textarea[data-id]')) {
-              const id = e.target.dataset.id;
-              const notes = e.target.value;
-              updateNotes(id, notes);
-          }
-      });
-
-      // Timeline Controls
       const timelineContainer = document.getElementById('timeline-scroll-container');
+      const prevButton = document.getElementById('timeline-prev');
+      const nextButton = document.getElementById('timeline-next');
+      
       if(timelineContainer) timelineContainer.addEventListener('scroll', updateTimelineNav);
-      document.getElementById('timeline-prev')?.addEventListener('click', () => timelineContainer.scrollBy({ left: -timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
-      document.getElementById('timeline-next')?.addEventListener('click', () => timelineContainer.scrollBy({ left: timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
+      if(prevButton) prevButton.addEventListener('click', () => timelineContainer.scrollBy({ left: -timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
+      if(nextButton) nextButton.addEventListener('click', () => timelineContainer.scrollBy({ left: timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
       document.getElementById('timeline-zoom-in')?.addEventListener('click', () => setTimelineScale(timelineScale + 0.2));
       document.getElementById('timeline-zoom-out')?.addEventListener('click', () => setTimelineScale(timelineScale - 0.2));
       document.getElementById('timeline-fullscreen-toggle')?.addEventListener('click', toggleTimelineFullscreen);
     });
   </script>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
+<!-- Firebase Configuration -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
+    authDomain: "communities-choice-portal.firebaseapp.com",
+    projectId: "communities-choice-portal",
+    storageBucket: "communities-choice-portal.firebasestorage.app",
+    messagingSenderId: "77753238309",
+    appId: "1:77753238309:web:b7bc1381f9478ccbff90cc",
+    measurementId: "G-KMGCMW8840"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- Login Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginBtn = document.getElementById("login-btn");
+    if (loginBtn) {
+      loginBtn.addEventListener("click", function () {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("login-message");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            message.textContent = "Success! Redirecting...";
+            setTimeout(() => {
+              window.location.href = "committee-portal.html";
+            }, 1500);
+          })
+          .catch((error) => {
+            message.textContent = "Login failed: " + error.message;
+          });
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
