@@ -37,7 +37,7 @@
       font-family: 'Arial Nova', Arial, Helvetica, sans-serif !important;
     }
     /* Hide pages by default */
-    .page {
+    .page, .portal-page {
       display: none;
     }
 
@@ -295,9 +295,6 @@
     /* ------------------- */
     /* Scoring & Portal Styles */
     /* ------------------- */
-     .portal-page {
-        display: none;
-    }
     .scoring-table th, .scoring-table td {
         padding: 0.75rem;
         vertical-align: middle;
@@ -392,31 +389,6 @@
         background-color: #f3e8ff;
     }
   </style>
-
-<!-- Firebase SDKs (Compat) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
-<script>
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
-    authDomain: "communities-choice-portal.firebaseapp.com",
-    projectId: "communities-choice-portal",
-    storageBucket: "communities-choice-portal.firebasestorage.app",
-    messagingSenderId: "77753238309",
-    appId: "1:77753238309:web:e37f4cad2b19b514ff90cc",
-    measurementId: "G-PYPNC4E40Y"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  // Ensure Firestore is online (in case client was toggled offline)
-  if (db && db.enableNetwork) { db.enableNetwork().catch(()=>{}); }
-  function areaSlug(s){ return String(s || '').toLowerCase().replace(/[^a-z]/g,''); }
-</script>
-
 </head>
 <body class="bg-gradient-to-br from-purple-100 via-purple-200 to-teal-100 min-h-screen">
 
@@ -435,31 +407,16 @@
               <button onclick="showPage('page-timeline')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Timeline</button>
               <button onclick="showPage('page-faq')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">FAQ</button>
               <button onclick="showPage('page-portal-login')" class="bg-purple-100 text-purple-800 hover:bg-purple-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff border border-purple-300">Committee Portal</button>
-          
-    <!-- Admin-only nav (shown when current user has role=admin or area=all) -->
-    <div id="admin-nav" class="hidden">
-      <nav class="flex gap-2">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded" onclick="showPortalPage('page-admin')">Admin Panel</button>
-      </nav>
-    </div>
-    </nav>
-    
+          </nav>
            <nav id="portal-nav" class="hidden items-center space-x-1 sm:space-x-2 text-xs sm:text-base flex-wrap justify-end">
+                <div id="user-info" class="text-sm text-purple-800 font-semibold mr-4"></div>
                 <button id="nav-portal-home" onclick="showPortalPage('page-portal-dashboard')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Portal Home</button>
                 <button onclick="showPortalPage('page-scoring')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Scoring Matrix</button>
                 <button onclick="showPortalPage('page-portal-apps')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Applications</button>
                 <button onclick="showPortalPage('page-portal-docs')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Documents</button>
                 <button id="nav-master-tracker" onclick="showPortalPage('page-portal-tracker')" class="text-purple-700 hover:bg-purple-100 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff admin-only" style="display: none;">Master Tracker</button>
                 <button onclick="logout()" class="bg-red-100 text-red-700 hover:bg-red-200 font-semibold py-2 px-3 rounded-lg transition duration-200 dynapuff">Logout</button>
-            
-    <!-- Admin-only nav (shown when current user has role=admin or area=all) -->
-    <div id="admin-nav" class="hidden">
-      <nav class="flex gap-2">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded" onclick="showPortalPage('page-admin')">Admin Panel</button>
-      </nav>
-    </div>
-    </nav>
-    
+            </nav>
       </div>
   </header>
 
@@ -467,7 +424,7 @@
     <!-- ======================= -->
     <!-- PUBLIC PAGES            -->
     <!-- ======================= -->
-
+    
     <!-- POSTCODE CHECKER PAGE   -->
     <div id="page-postcode-check" class="page">
       <!-- Hero Section -->
@@ -586,15 +543,7 @@
                     <button id="tab-blaenavon" onclick="showPriorityArea('blaenavon')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff active">Blaenavon</button>
                     <button id="tab-thornhill" onclick="showPriorityArea('thornhill')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Thornhill & Upper Cwmbran</button>
                     <button id="tab-trevethin" onclick="showPriorityArea('trevethin')" class="py-4 px-1 sm:px-4 font-semibold text-gray-500 hover:text-purple-700 tab-button dynapuff">Trevethin, Penygarn & St. Cadocs</button>
-                
-    <!-- Admin-only nav (shown when current user has role=admin or area=all) -->
-    <div id="admin-nav" class="hidden">
-      <nav class="flex gap-2">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded" onclick="showPortalPage('page-admin')">Admin Panel</button>
-      </nav>
-    </div>
-    </nav>
-    
+                </nav>
             </div>
             
             <!-- Content for each area will be injected here -->
@@ -862,33 +811,20 @@
     
     <!-- PORTAL LOGIN PAGE -->
     <div id="page-portal-login" class="page">
-<div class="flex flex-col items-center justify-center min-h-[60vh] px-4">
-  <div class="w-full max-w-md mx-auto bg-white p-8 rounded-2xl shadow-2xl text-center">
-    <h1 class="text-3xl font-bold text-purple-700 mb-2 dynapuff">Committee Portal</h1>
-    <p class="text-gray-600 mb-6">Sign in with your username <em>or</em> your email.</p>
-    <div class="space-y-3 text-left">
-      <label class="block text-sm font-medium text-gray-700">Username or Email</label>
-      <input type="text" id="login-identifier" placeholder="pg-blaenavon  •  or  d.j.watkins@hotmail.co.uk"
-             class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-      <label class="block text-sm font-medium text-gray-700 mt-2">Password</label>
-      <input type="password" id="login-password" placeholder="********"
-             class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-    </div>
-    <div class="mt-5 grid grid-cols-1 gap-3">
-      <button id="btn-login" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
-        Sign In
-      </button>
-      <button id="btn-reset" class="w-full bg-purple-100 text-purple-700 hover:bg-purple-200 font-semibold py-2 px-4 rounded-lg">
-        I need a password reset
-      </button>
-    </div>
-    <p id="portal-login-message" class="mt-4 text-center font-semibold text-red-600 h-6"></p>
-    <p class="mt-2 text-sm text-gray-500">
-      Username format is <code>initials-area</code> (e.g., <strong>pg-blaenavon</strong>). Members use usernames; admins can use their real email.
-    </p>
-  </div>
-</div>
-</div>
+        <div class="flex flex-col items-center justify-center min-h-[60vh] px-4">
+            <div class="w-full max-w-md mx-auto bg-white p-8 rounded-2xl shadow-2xl text-center">
+                <img src="https://d41chssnpqdne.cloudfront.net/user_upload_by_module/chat_bot/files/970258/3TRXfqvU6ZSE28wc.png?Expires=1758100204&Signature=CFuWtv9flT3Ad-WcYt5tNM0V0BNmLnq7NC9p~GBlth1SLEsbai8I5oJOPAlXCFNJBoCQ7dxES5RzlKmNqRxjn-VZG62jICHE4ScTtOJWhgsaH5e~ep5ARaaIo7kfHeTCsgUqbVq4NDz-LGQDy0w9~iiOsXTM9JIP8HIPnLvrXmbi9MotBSCkHSvDnrjgNPvH4LAvUTffiwVXrQrPewD7IyiB7UOEYvAqOpf2lL24hk4jfqpXChU-ViIJTOnS8y8xySv6wH5a6ZZTSmxQP4pTa4QQ0w1Zrtrvqd0UVRfI5S9Xwjt8JTLCutwreLhlDDXR~ECwxJ5sNuF5S8bStmQ9MA__&Key-Pair-Id=K3USGZIKWMDCSX" alt="Communities' Choice Logo" class="w-24 mx-auto mb-4"/>
+                <h1 class="text-3xl font-bold text-purple-700 mb-2 dynapuff">Committee Portal Login</h1>
+                <p class="text-gray-600 mb-6">Please enter your credentials to access the portal.</p>
+                <div class="space-y-4">
+                    <input type="text" id="login-username" placeholder="Username (e.g. jsmith)" class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    <input type="password" id="login-password" placeholder="Password" class="w-full px-4 py-2 border-2 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    <button onclick="login()" class="w-full bg-purple-600 hover:bg-purple-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 dynapuff">
+                        Login
+                    </button>
+                </div>
+                 <p id="login-message" class="mt-4 text-center font-semibold text-red-600 h-6"></p>
+            </div>
         </div>
     </div>
     
@@ -972,18 +908,14 @@
             <div class="text-center mb-10">
                 <h1 class="text-3xl md:text-4xl font-bold text-purple-700 mb-2 dynapuff">People's Committee Scoring Matrix</h1>
                 <p class="max-w-3xl mx-auto text-gray-700 arial-nova">
-                    Use this tool to score applications based on the agreed criteria. Your scores are automatically saved for the selected reference.
+                    Use this tool to score applications based on the agreed criteria. Your scores are saved in real-time.
                 </p>
             </div>
 
             <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-2xl">
                  <div id="scoring-finalized-message" class="hidden mb-4 p-4 text-center font-semibold text-blue-800 bg-blue-100 border border-blue-200 rounded-lg"></div>
                 <!-- Header Controls -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 pb-6 border-b border-gray-200">
-                    <div>
-                        <label for="scoring-member" class="block text-sm font-medium text-gray-700 mb-1">Committee Member</label>
-                        <select id="scoring-member" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"></select>
-                    </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-6 pb-6 border-b border-gray-200">
                     <div>
                         <label for="scoring-ref" class="block text-sm font-medium text-gray-700 mb-1">PB Reference</label>
                         <select id="scoring-ref" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"></select>
@@ -1040,7 +972,6 @@
                     <div>
                          <h3 class="text-xl font-bold text-gray-800 mb-4 dynapuff">Actions & Export</h3>
                         <div class="flex flex-wrap gap-3">
-                            <button id="scoring-save-progress" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow transition">Save Progress</button>
                             <button id="scoring-post-final" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg shadow transition">Post Final Scores</button>
                             <button id="scoring-export-csv" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg shadow transition admin-only" style="display: none;">Export Master CSV</button>
                             <button id="scoring-clear" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow transition">Clear Current Form</button>
@@ -1050,7 +981,7 @@
                     <div id="task-list-container">
                         <h3 class="text-xl font-bold text-gray-800 mb-4 dynapuff">My Scoring Tasks</h3>
                         <div id="task-list-content" class="bg-gray-50 p-2 rounded-lg h-48 overflow-y-auto space-y-1">
-                            <p class="text-gray-500 p-2">Please select your name to see your task list.</p>
+                            <p class="text-gray-500 p-2">Loading tasks...</p>
                         </div>
                          <div id="task-list-summary" class="mt-2"></div>
                     </div>
@@ -1069,18 +1000,15 @@
             <div class="text-center mb-10">
                 <h1 class="text-3xl md:text-4xl font-bold text-purple-700 mb-2 dynapuff">Application Viewer</h1>
                 <p class="max-w-3xl mx-auto text-gray-700 arial-nova">
-                    Select an application from the list to view the submitted PDF. Please select your name first to filter by your committee area.
+                    Select an application from the list to view the submitted PDF.
                 </p>
             </div>
             
             <div class="lg:flex lg:space-x-8">
                 <div class="lg:w-1/3 bg-white p-4 rounded-xl shadow-lg mb-6 lg:mb-0">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <label for="app-viewer-member" class="text-sm font-medium text-gray-700">Member:</label>
-                        <select id="app-viewer-member" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm"></select>
-                    </div>
+                    <h3 class="text-lg font-bold text-purple-700 dynapuff mb-2">My Applications</h3>
                      <div id="app-viewer-list" class="h-[70vh] overflow-y-auto space-y-2 pr-2">
-                        <p class="text-gray-500 text-center p-4">Please select your name to view applications.</p>
+                        <p class="text-gray-500 text-center p-4">Loading applications...</p>
                      </div>
                 </div>
                 <div class="lg:w-2/3">
@@ -1165,14 +1093,8 @@
             </div>
             <div class="overflow-y-auto pr-4 space-y-4 text-left arial-nova text-gray-700">
                  <p class="text-lg">Welcome to the People's Committee Scoring Matrix. This guide will walk you through the process of scoring applications for the Communities' Choice Fund.</p>
-
                 <div>
-                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 1: Select Your Name</h3>
-                    <p>Using the 'Committee Member' dropdown menu at the top of the page, please select your name. This will filter the application list to show only those assigned to your area and load your personal scoring tasks.</p>
-                </div>
-
-                <div>
-                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 2: Choose an Application to Score</h3>
+                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 1: Choose an Application to Score</h3>
                     <p>You can select an application in two ways:</p>
                     <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
                         <li>Use the 'PB Reference' or 'Applicant' dropdown menus.</li>
@@ -1181,33 +1103,49 @@
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 3: Score the Application</h3>
+                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 2: Score the Application</h3>
                     <p>Once an application is loaded, you can begin scoring:</p>
                     <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
                         <li><strong>Read the Application:</strong> Click the 'View Application PDF' button to open the applicant's PDF in a movable window.</li>
                         <li><strong>Use the Sliders:</strong> For each criterion, use the slider to select a score from 0 to 3. Your total score will update automatically.</li>
-                        <li><strong>Add Notes (Optional):</strong> You can add notes in the text box to provide context or justification for the score you have given for each criterion.</li>
+                        <li><strong>Add Notes (Optional):</strong> You can add notes in the text box to provide context or justification for the score you have given for each criterion. Your progress is saved automatically.</li>
                         <li><strong>Guidance:</strong> Hover over the <svg class="inline-block w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> icon next to each criterion name for detailed scoring guidance.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 4: Saving Your Work</h3>
-                    <p>Your progress is saved automatically as you enter scores and notes. You can also click the <strong>'Save Progress'</strong> button to save manually. Applications you have started but not finalized will be marked as 'In Progress' in your task list.</p>
-                </div>
-
-                <div>
-                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 5: Submitting Your Final Scores</h3>
+                    <h3 class="font-bold text-lg text-purple-800 dynapuff mt-4">Step 3: Submitting Your Final Scores</h3>
                     <p>When you are completely happy with your scores and justification for an application and are ready to submit them, click the <strong>'Post Final Scores'</strong> button. You will be asked to confirm this action.</p>
                     <p class="font-semibold text-red-600 mt-2">Important: Once you post your scores, you will NOT be able to edit them again. The form for that application will become read-only.</p>
                 </div>
             </div>
         </div>
     </div>
-
   </main>
+  
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { 
+        getAuth, 
+        onAuthStateChanged, 
+        signInWithEmailAndPassword,
+        signOut 
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { 
+        getFirestore, 
+        setLogLevel,
+        doc, 
+        getDoc, 
+        setDoc, 
+        deleteDoc, 
+        collection, 
+        onSnapshot, 
+        query, 
+        where 
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-  <script>
     // ---------------
     // DATA
     // ---------------
@@ -1266,15 +1204,23 @@
     };
     
     // ---------------
-    // GLOBAL STATE
+    // GLOBAL STATE & FIREBASE
     // ---------------
     let timelineScale = 1.0;
     let activeMilestoneIndex = 0;
     let prioritiesChart = null;
-    let scoringMatrixInitialized = false; 
-    let currentMember = null;
+    let currentScoringState = {};
     let isDraggingPdfViewer = false;
     let pdfViewerOffsetX, pdfViewerOffsetY;
+
+    let app;
+    let auth;
+    let db;
+    let currentUserProfile = null;
+    let scoresCollectionRef;
+    let taskListenerUnsubscribe = null; 
+    let adminDashboardUnsubscribe = null;
+    let masterTrackerUnsubscribe = null;
 
     // ---------------
     // MODAL & GUIDE
@@ -1283,31 +1229,22 @@
         const modal = document.getElementById('guide-modal');
         if(modal) modal.classList.remove('hidden');
     }
+    window.openGuideModal = openGuideModal;
 
     function closeGuideModal() {
         const modal = document.getElementById('guide-modal');
         if(modal) modal.classList.add('hidden');
     }
+    window.closeGuideModal = closeGuideModal;
 
     // ---------------
     // PAGE NAVIGATION & AUTH
     // ---------------
      function showPage(pageId) {
-        // This function is for PUBLIC pages.
-        if (sessionStorage.getItem('isCommitteeMember') === 'true' || sessionStorage.getItem('isAdmin') === 'true') {
-            document.getElementById('main-nav').style.display = 'none';
-            document.getElementById('portal-nav').style.display = 'flex';
-        } else {
-            document.getElementById('main-nav').style.display = 'flex';
-            document.getElementById('portal-nav').style.display = 'none';
-        }
-
         document.querySelectorAll('.page, .portal-page').forEach(p => p.style.display = 'none');
         
         const newPage = document.getElementById(pageId);
-        if (newPage) {
-            newPage.style.display = 'block';
-        }
+        if (newPage) newPage.style.display = 'block';
         
         if (pageId === 'page-timeline') {
             setTimeout(() => {
@@ -1318,110 +1255,125 @@
         if (pageId === 'page-priorities') {
             showPriorityArea('blaenavon');
         }
-        
         window.scrollTo(0, 0);
     }
+    window.showPage = showPage;
     
      function showPortalPage(pageId) {
-        // This function is for SECURE portal pages.
-        const isCommitteeMember = sessionStorage.getItem('isCommitteeMember') === 'true';
-        const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
-
-        if (!isCommitteeMember && !isAdmin) {
+        if (!currentUserProfile) {
             showPage('page-portal-login');
             return;
         }
 
         document.querySelectorAll('.page, .portal-page').forEach(p => p.style.display = 'none');
-
         const newPage = document.getElementById(pageId);
-        if (newPage) {
-            newPage.style.display = 'block';
-        }
+        if (newPage) newPage.style.display = 'block';
 
-        document.getElementById('main-nav').style.display = 'none';
-        document.getElementById('portal-nav').style.display = 'flex';
-        
-        // Update nav links and back buttons to point to the correct dashboard
+        const isAdmin = currentUserProfile.role === 'admin';
         document.getElementById('nav-portal-home').onclick = () => showPortalPage(isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard');
         document.querySelectorAll('.back-to-dashboard').forEach(btn => {
             btn.onclick = () => showPortalPage(isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard');
         });
 
-        // Initialize page-specific scripts
         if (pageId === 'page-scoring') initializeScoringMatrix();
         if (pageId === 'page-portal-apps') initializeAppsViewer();
-        if (pageId === 'page-portal-tracker') renderMasterTrackerView();
-        if (pageId === 'page-admin-dashboard') {
-            const filterSelect = document.getElementById('admin-area-filter');
-            // Add listener for the area filter, but only once
-            if (!filterSelect.dataset.listenerAttached) {
-                filterSelect.addEventListener('change', (e) => renderAdminDashboard(e.target.value));
-                filterSelect.dataset.listenerAttached = 'true';
-            }
-            // Initial render with the current filter value
-            renderAdminDashboard(filterSelect.value);
-        }
+        if (pageId === 'page-portal-tracker') initializeMasterTracker();
+        if (pageId === 'page-admin-dashboard') initializeAdminDashboard();
         
-        
-        document.querySelectorAll('.admin-only').forEach(el => {
-             el.style.display = isAdmin ? 'block' : 'none';
-        });
-
         window.scrollTo(0, 0);
     }
+    window.showPortalPage = showPortalPage;
 
-    function checkPortalPassword() {
-        const passwordInput = document.getElementById('portal-password-input');
-        const messageDiv = document.getElementById('portal-login-message');
-        const memberPassword = 'CCPB2025';
-        const adminPassword = 'CCPBAdmin2025';
+    async function login() {
+        const usernameInput = document.getElementById('login-username');
+        const passwordInput = document.getElementById('login-password');
+        const messageDiv = document.getElementById('login-message');
+        messageDiv.textContent = 'Signing in...';
+        messageDiv.className = 'mt-4 text-center font-semibold text-gray-600 h-6';
 
-        if (passwordInput.value === adminPassword) {
-            sessionStorage.setItem('isAdmin', 'true');
-            sessionStorage.setItem('isCommitteeMember', 'true'); // Admins are also members
-            passwordInput.value = '';
-            messageDiv.textContent = '';
-            showPortalPage('page-admin-dashboard');
-        } else if (passwordInput.value === memberPassword) {
-            sessionStorage.setItem('isCommitteeMember', 'true');
-            sessionStorage.removeItem('isAdmin');
-            passwordInput.value = '';
-            messageDiv.textContent = '';
-            showPortalPage('page-portal-dashboard');
+        const username = usernameInput.value.trim();
+        if (!username) {
+            messageDiv.textContent = 'Please enter a username.';
+            messageDiv.className = 'mt-4 text-center font-semibold text-red-600 h-6';
+            return;
         }
-        else {
-            messageDiv.textContent = 'Incorrect password. Please try again.';
-            passwordInput.value = '';
+
+        const email = `${username}@users.local`;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, passwordInput.value);
+            // onAuthStateChanged will handle the rest
+            messageDiv.textContent = 'Success! Redirecting...';
+            messageDiv.className = 'mt-4 text-center font-semibold text-green-600 h-6';
+        } catch (error) {
+            console.error("Login failed:", error.code, error.message);
+            if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                 messageDiv.textContent = 'Login failed. Please check your username and password.';
+            } else {
+                 messageDiv.textContent = 'An error occurred during login.';
+            }
+            messageDiv.className = 'mt-4 text-center font-semibold text-red-600 h-6';
         }
     }
+    window.login = login;
     
-    function logout() {
-        sessionStorage.removeItem('isCommitteeMember');
-        sessionStorage.removeItem('isAdmin');
-        currentMember = null; // Clear the current member state
+    async function logout() {
+        if (taskListenerUnsubscribe) taskListenerUnsubscribe();
+        if (adminDashboardUnsubscribe) adminDashboardUnsubscribe();
+        if (masterTrackerUnsubscribe) masterTrackerUnsubscribe();
+        taskListenerUnsubscribe = null;
+        adminDashboardUnsubscribe = null;
+        masterTrackerUnsubscribe = null;
+        
+        await signOut(auth);
+        currentUserProfile = null;
         document.getElementById('main-nav').style.display = 'flex';
         document.getElementById('portal-nav').style.display = 'none';
         showPage('page-landing');
     }
+    window.logout = logout;
 
+    async function handleAuthState(user) {
+        if (user) {
+            const userDocRef = doc(db, 'committeeMembers', user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                currentUserProfile = userDocSnap.data();
+                
+                document.getElementById('main-nav').style.display = 'none';
+                document.getElementById('portal-nav').style.display = 'flex';
+                document.getElementById('user-info').textContent = `Welcome, ${currentUserProfile.name}`;
+                document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = currentUserProfile.role === 'admin' ? 'block' : 'none';
+                });
+                showPortalPage(currentUserProfile.role === 'admin' ? 'page-admin-dashboard' : 'page-portal-dashboard');
+            } else {
+                console.error("No profile found for user:", user.uid);
+                alert("Your account is authenticated, but no user profile was found. Please contact an administrator.");
+                await logout();
+            }
+        } else {
+            currentUserProfile = null;
+            document.getElementById('main-nav').style.display = 'flex';
+            document.getElementById('portal-nav').style.display = 'none';
+            // If the user is on a portal page when they get logged out, redirect them.
+            const currentPage = document.querySelector('.portal-page[style*="block"]');
+            if (currentPage) {
+                 showPage('page-landing');
+            }
+        }
+    }
 
     function centerActiveMilestone() {
         const timelineContainer = document.getElementById('timeline-scroll-container');
-        // Find the active milestone *after* a potential re-render
         const activeMilestone = document.querySelector('.milestone.active');
-
         if (timelineContainer && activeMilestone) {
             const containerWidth = timelineContainer.offsetWidth;
             const milestoneLeft = activeMilestone.offsetLeft;
             const milestoneWidth = activeMilestone.offsetWidth;
-
             const desiredScrollLeft = milestoneLeft - (containerWidth / 2) + (milestoneWidth / 2);
-
-            timelineContainer.scrollTo({
-                left: desiredScrollLeft,
-                behavior: 'smooth'
-            });
+            timelineContainer.scrollTo({ left: desiredScrollLeft, behavior: 'smooth' });
         }
     }
 
@@ -1430,7 +1382,6 @@
         const prevButton = document.getElementById('timeline-prev');
         const nextButton = document.getElementById('timeline-next');
         if (!timelineContainer || !prevButton || !nextButton) return;
-
         const maxScrollLeft = timelineContainer.scrollWidth - timelineContainer.clientWidth;
         prevButton.disabled = timelineContainer.scrollLeft <= 1; 
         nextButton.disabled = timelineContainer.scrollLeft >= maxScrollLeft - 1; 
@@ -1440,7 +1391,6 @@
       const votingTitle = document.getElementById('voting-title');
       const votingText = document.getElementById('voting-text');
       const votingIframe = document.getElementById('voting-iframe');
-
       if(votingTitle && votingText && votingIframe) {
         votingTitle.innerText = `${areaName} PB Voting`;
         votingText.innerText = `Please complete the voting form for ${areaName} below. Choose your favourite three projects!`;
@@ -1456,6 +1406,7 @@
             areaSelect.value = areaKey;
         }
     }
+    window.goToVotePage = goToVotePage;
     
     // -----------------------
     // POSTCODE CHECKER
@@ -1464,7 +1415,6 @@
       const areaSelect = document.getElementById('area-select');
       const postcode_input = document.getElementById('postcode-input');
       const messageDiv = document.getElementById('postcode-message');
-
       const selectedAreaKey = areaSelect.value;
       const rawPostcode = postcode_input.value;
 
@@ -1493,6 +1443,7 @@
         messageDiv.className = 'mt-4 text-center font-semibold text-red-600';
       }
     }
+    window.checkPostcode = checkPostcode;
 
     // -----------------------
     // PRIORITIES PAGE
@@ -1502,7 +1453,6 @@
         const data = prioritiesData[areaKey];
         if (!data) return;
 
-        // Update active tab
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         document.getElementById(`tab-${areaKey}`).classList.add('active');
 
@@ -1530,9 +1480,9 @@
                 </div>
             </div>
         `;
-
         renderPrioritiesChart(data);
     }
+    window.showPriorityArea = showPriorityArea;
 
     function renderPrioritiesChart(data) {
         if (prioritiesChart) {
@@ -1546,22 +1496,8 @@
                 datasets: [{
                     label: 'Number of Mentions',
                     data: data.priorities.map(p => p.score),
-                    backgroundColor: [
-                        'rgba(147, 51, 234, 0.7)',
-                        'rgba(167, 139, 250, 0.7)',
-                        'rgba(20, 184, 166, 0.7)',
-                        'rgba(99, 102, 241, 0.7)',
-                        'rgba(234, 179, 8, 0.7)',
-                        'rgba(236, 72, 153, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(147, 51, 234, 1)',
-                        'rgba(167, 139, 250, 1)',
-                        'rgba(20, 184, 166, 1)',
-                        'rgba(99, 102, 241, 1)',
-                        'rgba(234, 179, 8, 1)',
-                        'rgba(236, 72, 153, 1)'
-                    ],
+                    backgroundColor: ['rgba(147, 51, 234, 0.7)','rgba(167, 139, 250, 0.7)','rgba(20, 184, 166, 0.7)','rgba(99, 102, 241, 0.7)','rgba(234, 179, 8, 0.7)','rgba(236, 72, 153, 0.7)'],
+                    borderColor: ['rgba(147, 51, 234, 1)','rgba(167, 139, 250, 1)','rgba(20, 184, 166, 1)','rgba(99, 102, 241, 1)','rgba(234, 179, 8, 1)','rgba(236, 72, 153, 1)'],
                     borderWidth: 1.5
                 }]
             },
@@ -1570,27 +1506,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: '#374151',
-                        titleFont: { family: "'DynaPuff', cursive" },
-                        bodyFont: { family: "'Arial Nova', Arial, sans-serif" }
-                    }
+                    legend: { display: false },
+                    tooltip: { backgroundColor: '#374151', titleFont: { family: "'DynaPuff', cursive" }, bodyFont: { family: "'Arial Nova', Arial, sans-serif" }}
                 },
                 scales: {
-                    y: {
-                        ticks: {
-                            font: {
-                                size: 11,
-                                family: "'Arial Nova', Arial, sans-serif"
-                            }
-                        }
-                    },
-                     x: {
-                        beginAtZero: true
-                    }
+                    y: { ticks: { font: { size: 11, family: "'Arial Nova', Arial, sans-serif" }}},
+                    x: { beginAtZero: true }
                 }
             }
         });
@@ -1600,46 +1521,14 @@
     // TIMELINE IMPLEMENTATION
     // -----------------------
     const timelineEvents = [
-      {
-        title: "Jan - May 2025",
-        label: "“Have Your Say!”",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">January - May 2025: "Have Your Say!" Campaign</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>The Communities’ Choice Fund runs its "Have Your Say!" campaign.</li><li>Aims to identify top five funding priorities for Blaenavon, Thornhill & Upper Cwmbran, and Trevethin, Penygarn & St. Cadocs.</li><li><b>1062 responses</b> received across areas.</li><li>Priorities established based on engagement and data.</li></ul></div>`
-      },
-      {
-        title: "20 Jun 2025",
-        label: "Applications Open",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Friday, 20th June 2025: Application Process Opens</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Application process opens for Communities’ Choice Fund.</li><li>Applicants can submit Part 1 Expression of Interest (EOI) forms.</li></ul></div>`
-      },
-      {
-        title: "1 Aug 2025",
-        label: "EOI Deadline",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Friday, 1st August 2025 (Midnight): Deadline for Part 1 EOI Forms</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Final deadline for submitting Part 1 EOI forms.</li><li>Late applications not considered for Part 2.</li></ul></div>`
-      },
-      {
-        title: "Post 1 Aug",
-        label: "EOI Assessment",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">After 1st August 2025: EOI Assessment and Shortlisting</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>People Committees assess and score EOI forms.</li><li>Shortlisted applicants invited to complete Part 2.</li></ul></div>`
-      },
-      {
-        title: "Pre 10 Sep",
-        label: "Part 2 Completion",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Before Wednesday, 10th September 2025: Part 2 Application Completion</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>Applicants complete detailed application form, delivery plan, and budget.</li><li>Attach supporting documents (constitution, policies, bank statements, certificates).</li><li>Cross-area applications need separate budget template.</li></ul></div>`
-      },
-      {
-        title: "10 Sep 2025",
-        label: "Full Application Deadline",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Wednesday, 10th September 2025: Deadline for Part 2 Full Application Forms</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Deadline for submitting Part 2 forms to <a href="mailto:communities-choice@tvawales.org.uk" class="text-purple-600 underline">communities-choice@tvawales.org.uk</a>.</li><li>Late applications may not be considered unless pre-agreed.</li></ul></div>`
-      },
-      {
-        title: "Post 10 Sep",
-        label: "Final Assessment",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">After 10th September 2025: Final Assessment by People's Committee</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>People Committees review Part 2 applications.</li><li>Decide which projects go to public vote.</li></ul></div>`
-      },
-      {
-        title: "TBC",
-        label: "Community Voting",
-        details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Undetermined Date(s): Community Voting Event(s)</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>Finalists present projects at local events.</li><li>Residents vote for projects to be funded.</li><li>Top-voted projects reviewed and awarded funding.</li></ul></div>`
-      }
+      { title: "Jan - May 2025", label: "“Have Your Say!”", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">January - May 2025: "Have Your Say!" Campaign</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>The Communities’ Choice Fund runs its "Have Your Say!" campaign.</li><li>Aims to identify top five funding priorities for Blaenavon, Thornhill & Upper Cwmbran, and Trevethin, Penygarn & St. Cadocs.</li><li><b>1062 responses</b> received across areas.</li><li>Priorities established based on engagement and data.</li></ul></div>`},
+      { title: "20 Jun 2025", label: "Applications Open", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Friday, 20th June 2025: Application Process Opens</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Application process opens for Communities’ Choice Fund.</li><li>Applicants can submit Part 1 Expression of Interest (EOI) forms.</li></ul></div>`},
+      { title: "1 Aug 2025", label: "EOI Deadline", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Friday, 1st August 2025 (Midnight): Deadline for Part 1 EOI Forms</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Final deadline for submitting Part 1 EOI forms.</li><li>Late applications not considered for Part 2.</li></ul></div>`},
+      { title: "Post 1 Aug", label: "EOI Assessment", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">After 1st August 2025: EOI Assessment and Shortlisting</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>People Committees assess and score EOI forms.</li><li>Shortlisted applicants invited to complete Part 2.</li></ul></div>`},
+      { title: "Pre 10 Sep", label: "Part 2 Completion", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Before Wednesday, 10th September 2025: Part 2 Application Completion</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>Applicants complete detailed application form, delivery plan, and budget.</li><li>Attach supporting documents (constitution, policies, bank statements, certificates).</li><li>Cross-area applications need separate budget template.</li></ul></div>`},
+      { title: "10 Sep 2025", label: "Full Application Deadline", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Wednesday, 10th September 2025: Deadline for Part 2 Full Application Forms</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>Deadline for submitting Part 2 forms to <a href="mailto:communities-choice@tvawales.org.uk" class="text-purple-600 underline">communities-choice@tvawales.org.uk</a>.</li><li>Late applications may not be considered unless pre-agreed.</li></ul></div>`},
+      { title: "Post 10 Sep", label: "Final Assessment", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">After 10th September 2025: Final Assessment by People's Committee</h3><ul class="list-disc ml-6 text-gray-700 arial-nova"><li>People Committees review Part 2 applications.</li><li>Decide which projects go to public vote.</li></ul></div>`},
+      { title: "TBC", label: "Community Voting", details: `<div class="p-4"><h3 class="text-lg font-bold text-purple-700 mb-2 dynapuff">Undetermined Date(s): Community Voting Event(s)</h3><ul class="list-disc ml-6 text-gray-700 arial-nova space-y-1"><li>Finalists present projects at local events.</li><li>Residents vote for projects to be funded.</li><li>Top-voted projects reviewed and awarded funding.</li></ul></div>`}
     ];
 
     function renderTimelineBar() {
@@ -1655,7 +1544,6 @@
         const usableWidthPercent = 90; 
         const marginPercent = 5;
         const leftPercent = marginPercent + (idx / (total - 1)) * usableWidthPercent;
-
         const isAbove = idx % 2 === 0;
         const milestone = document.createElement('button');
         milestone.id = `milestone-${idx}`;
@@ -1686,7 +1574,7 @@
 
     function showMilestoneDetail(idx) {
         activeMilestoneIndex = idx;
-        renderTimelineBar(); // This re-renders with the new active index
+        renderTimelineBar();
 
         const milestoneElement = document.getElementById(`milestone-${idx}`);
         const callout = document.getElementById('timeline-callout');
@@ -1718,18 +1606,13 @@
             }
             left = milestoneLeft + (milestoneWidth / 2) - (calloutWidth / 2);
 
-            // Prevent overflow from scroll container
             const timelineContainer = document.getElementById('timeline-scroll-container');
             const visibleLeft = timelineContainer.scrollLeft;
             const visibleRight = visibleLeft + timelineContainer.clientWidth;
 
-            if (left < visibleLeft) {
-                left = visibleLeft + 10;
-            }
-            if (left + calloutWidth > visibleRight) {
-                left = visibleRight - calloutWidth - 10;
-            }
-
+            if (left < visibleLeft) left = visibleLeft + 10;
+            if (left + calloutWidth > visibleRight) left = visibleRight - calloutWidth - 10;
+            
             callout.style.top = `${top}px`;
             callout.style.left = `${left}px`;
             callout.classList.add('show');
@@ -1737,12 +1620,11 @@
     }
 
     function setTimelineScale(newScale) {
-        timelineScale = Math.max(0.5, Math.min(1.8, newScale)); // Clamp scale
+        timelineScale = Math.max(0.5, Math.min(1.8, newScale));
         document.documentElement.style.setProperty('--timeline-scale', timelineScale);
         document.getElementById('timeline-zoom-in').disabled = timelineScale >= 1.79;
         document.getElementById('timeline-zoom-out').disabled = timelineScale <= 0.51;
 
-        // Use a timeout to allow the browser to apply new styles and calculate new dimensions
         setTimeout(() => {
             renderTimelineBar();
             showMilestoneDetail(activeMilestoneIndex);
@@ -1761,11 +1643,10 @@
       enterIcon.classList.toggle('hidden', isFullscreen);
       exitIcon.classList.toggle('hidden', !isFullscreen);
       
-      // Re-center and update display after the transition
       setTimeout(() => {
         showMilestoneDetail(activeMilestoneIndex);
         centerActiveMilestone();
-      }, 300); // Should match CSS transition time
+      }, 300);
     }
 
     // -----------------------
@@ -1811,157 +1692,72 @@
             { ref: "PBCRS004", applicant: "Torfaen Talks CIC", area: "Cross-Area Application", pdfUrl: "https://cdn.jsdelivr.net/gh/danwtva-source/applications-test@main/PBCRS004.pdf" },
             { ref: "PBCRS005", applicant: "Wrestle Cymru", area: "Cross-Area Application", pdfUrl: "https://cdn.jsdelivr.net/gh/danwtva-source/applications-test@main/PBCRS005.pdf" }
         ],
-        COMMITTEE_MEMBERS: [
-            { name: "Louise White", area: "Blaenavon" },
-            { name: "Sharon Ford (P)", area: "Blaenavon" },
-            { name: "Boyd Paynter (C)", area: "Blaenavon" },
-            { name: "Sarah J Charles (A.E)", area: "Blaenavon" },
-            { name: "Karen Lang", area: "Blaenavon" },
-            { name: "Richard Lang", area: "Blaenavon" },
-            { name: "Pauline Griffiths", area: "Blaenavon" },
-            { name: "Tracey Daniels", area: "Thornhill & Upper Cwmbran" },
-            { name: "Adele Bishop", area: "Thornhill & Upper Cwmbran" },
-            { name: "Clare Roche", area: "Thornhill & Upper Cwmbran" },
-            { name: "Lara Biggs", area: "Thornhill & Upper Cwmbran" },
-            { name: "Steven Evans", area: "Thornhill & Upper Cwmbran" },
-            { name: "Leanne Lloyd-Tolman", area: "Thornhill & Upper Cwmbran" },
-            { name: "Hannah Davies", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "Louise Johnson", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "Toniann Phillips", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "Sue Malson", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "John Marks", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "Denise Strange", area: "Trevethin, Penygarn & St. Cadocs" },
-            { name: "Dan Watkins", area: "Admin" }, // Admin User
-            { name: "Bailey Richardson", area: "Admin" } // Admin User
-        ],
         CRITERIA_TEMPLATE: [
-            { 
-                id: "priority", name: "Alignment with Local Priorities", 
-                guidance: "How well does the project align with the identified priorities for the area?", 
-                weight: 10,
-                details: "<b>0:</b> No alignment with local priorities.<br><b>1:</b> Weak or unclear link to local priorities.<br><b>2:</b> Clear alignment with one or more local priorities.<br><b>3:</b> Strong, direct alignment with a top local priority."
-            },
-            { 
-                id: "impact", name: "Community Impact & Benefit", 
-                guidance: "How significant is the project's potential benefit to the community?", 
-                weight: 10,
-                details: "<b>0:</b> No clear community benefit.<br><b>1:</b> Benefits a small, specific group of people.<br><b>2:</b> Benefits a significant portion of the community.<br><b>3:</b> Wide-reaching, significant, and lasting benefits for the community."
-            },
-            { 
-                id: "deliverability", name: "Deliverability & Value for Money", 
-                guidance: "How realistic is the project plan and budget? Does it represent good value?", 
-                weight: 10,
-                details: "<b>0:</b> Unrealistic plan or budget; poor value for money.<br><b>1:</b> Some concerns about the plan's feasibility or budget justification.<br><b>2:</b> Realistic plan and budget that represents reasonable value.<br><b>3:</b> Excellent, well-thought-out plan and a well-justified budget offering exceptional value."
-            },
-            { 
-                id: "engagement", name: "Community Engagement & Collaboration", 
-                guidance: "How well does the project involve the community and collaborate with others?", 
-                weight: 10,
-                details: "<b>0:</b> No evidence of community engagement or collaboration.<br><b>1:</b> Some consultation with the community or partners mentioned.<br><b>2:</b> Actively involves community members in the project's design or delivery.<br><b>3:</b> Strong partnerships and co-design with the community are central to the project."
-            },
-            { 
-                id: "sustainability", name: "Sustainability & Legacy", 
-                guidance: "Does the project have a plan for continuation or lasting impact?", 
-                weight: 10,
-                details: "<b>0:</b> No legacy or plan for sustainability.<br><b>1:</b> The project is short-term with no clear lasting impact.<br><b>2:</b> The project has the potential for lasting impact or continuation.<br><b>3:</b> The project has a clear and realistic plan for continuation and lasting community benefit."
-            },
-            {
-                id: "marmot", name: "Alignment with Marmot Principles",
-                guidance: "How effectively does the project address health inequalities?",
-                weight: 10,
-                details: "<b>0:</b> No alignment.<br><b>1:</b> Weak link to principles.<br><b>2:</b> Clearly addresses one or more principles.<br><b>3:</b> Strong alignment with practical examples."
-            },
-            {
-                id: "wfg", name: "Well-being of Future Generations (Wales) Act",
-                guidance: "How does the project contribute to the well-being goals for Wales?",
-                weight: 10,
-                details: "<b>0:</b> No contribution.<br><b>1:</b> Weak link to goals.<br><b>2:</b> Clearly contributes to one or more goals.<br><b>3:</b> Strong alignment with practical examples."
-            },
-            {
-                id: "innovation", name: "Innovation & Creativity",
-                guidance: "Does the project offer a new or creative solution to a community issue?",
-                weight: 10,
-                details: "<b>0:</b> Conventional approach.<br><b>1:</b> Some new elements.<br><b>2:</b> Creative and innovative approach.<br><b>3:</b> Highly original and inspiring solution."
-            },
-            {
-                id: "inclusivity", name: "Inclusivity & Equality",
-                guidance: "How well does the project include and benefit diverse groups?",
-                weight: 10,
-                details: "<b>0:</b> Not inclusive.<br><b>1:</b> Limited reach to diverse groups.<br><b>2:</b> Accessible to most community groups.<br><b>3:</b> Proactively inclusive and removes barriers to participation."
-            },
-            {
-                id: "evidence", name: "Evidence of Need",
-                guidance: "Is there clear evidence that this project is needed in the community?",
-                weight: 10,
-                details: "<b>0:</b> No evidence of need provided.<br><b>1:</b> Anecdotal evidence of need.<br><b>2:</b> Supported by some local data or consultation.<br><b>3:</b> Strong evidence from community consultation and data."
-            }
+            { id: "priority", name: "Alignment with Local Priorities", guidance: "How well does the project align with the identified priorities for the area?", weight: 10, details: "<b>0:</b> No alignment with local priorities.<br><b>1:</b> Weak or unclear link to local priorities.<br><b>2:</b> Clear alignment with one or more local priorities.<br><b>3:</b> Strong, direct alignment with a top local priority." },
+            { id: "impact", name: "Community Impact & Benefit", guidance: "How significant is the project's potential benefit to the community?", weight: 10, details: "<b>0:</b> No clear community benefit.<br><b>1:</b> Benefits a small, specific group of people.<br><b>2:</b> Benefits a significant portion of the community.<br><b>3:</b> Wide-reaching, significant, and lasting benefits for the community." },
+            { id: "deliverability", name: "Deliverability & Value for Money", guidance: "How realistic is the project plan and budget? Does it represent good value?", weight: 10, details: "<b>0:</b> Unrealistic plan or budget; poor value for money.<br><b>1:</b> Some concerns about the plan's feasibility or budget justification.<br><b>2:</b> Realistic plan and budget that represents reasonable value.<br><b>3:</b> Excellent, well-thought-out plan and a well-justified budget offering exceptional value." },
+            { id: "engagement", name: "Community Engagement & Collaboration", guidance: "How well does the project involve the community and collaborate with others?", weight: 10, details: "<b>0:</b> No evidence of community engagement or collaboration.<br><b>1:</b> Some consultation with the community or partners mentioned.<br><b>2:</b> Actively involves community members in the project's design or delivery.<br><b>3:</b> Strong partnerships and co-design with the community are central to the project." },
+            { id: "sustainability", name: "Sustainability & Legacy", guidance: "Does the project have a plan for continuation or lasting impact?", weight: 10, details: "<b>0:</b> No legacy or plan for sustainability.<br><b>1:</b> The project is short-term with no clear lasting impact.<br><b>2:</b> The project has the potential for lasting impact or continuation.<br><b>3:</b> The project has a clear and realistic plan for continuation and lasting community benefit." },
+            { id: "marmot", name: "Alignment with Marmot Principles", guidance: "How effectively does the project address health inequalities?", weight: 10, details: "<b>0:</b> No alignment.<br><b>1:</b> Weak link to principles.<br><b>2:</b> Clearly addresses one or more principles.<br><b>3:</b> Strong alignment with practical examples." },
+            { id: "wfg", name: "Well-being of Future Generations (Wales) Act", guidance: "How does the project contribute to the well-being goals for Wales?", weight: 10, details: "<b>0:</b> No contribution.<br><b>1:</b> Weak link to goals.<br><b>2:</b> Clearly contributes to one or more goals.<br><b>3:</b> Strong alignment with practical examples." },
+            { id: "innovation", name: "Innovation & Creativity", guidance: "Does the project offer a new or creative solution to a community issue?", weight: 10, details: "<b>0:</b> Conventional approach.<br><b>1:</b> Some new elements.<br><b>2:</b> Creative and innovative approach.<br><b>3:</b> Highly original and inspiring solution." },
+            { id: "inclusivity", name: "Inclusivity & Equality", guidance: "How well does the project include and benefit diverse groups?", weight: 10, details: "<b>0:</b> Not inclusive.<br><b>1:</b> Limited reach to diverse groups.<br><b>2:</b> Accessible to most community groups.<br><b>3:</b> Proactively inclusive and removes barriers to participation." },
+            { id: "evidence", name: "Evidence of Need", guidance: "Is there clear evidence that this project is needed in the community?", weight: 10, details: "<b>0:</b> No evidence of need provided.<br><b>1:</b> Anecdotal evidence of need.<br><b>2:</b> Supported by some local data or consultation.<br><b>3:</b> Strong evidence from community consultation and data." }
         ]
     };
 
-    let currentScoringState = {};
-
     function initializeScoringMatrix() {
-        // Use a flag to ensure this runs only once
-        if (scoringMatrixInitialized) {
-            updateMemberAndView(document.getElementById('scoring-member').value);
-            return;
-        };
-
-        // Populate dropdowns
-        const memberSelect = document.getElementById('scoring-member');
-        memberSelect.innerHTML = '<option value="">Select your name...</option>';
-        SCORING_DATA.COMMITTEE_MEMBERS.forEach(member => memberSelect.add(new Option(member.name, member.name)));
+        if (!currentUserProfile) return;
+        updateMemberAndView();
         
-        // Add event listeners
-        memberSelect.addEventListener('change', (e) => updateMemberAndView(e.target.value));
         document.getElementById('scoring-ref').addEventListener('change', (e) => handleAppSelection(e.target.value));
         document.getElementById('scoring-applicant').addEventListener('change', (e) => handleAppSelection(e.target.value));
         document.getElementById('scoring-threshold').addEventListener('input', updateTotalsAndOutcome);
         
-        document.getElementById('scoring-save-progress').addEventListener('click', () => saveProgress(true));
         document.getElementById('scoring-post-final').addEventListener('click', postFinalScores);
         document.getElementById('scoring-export-csv').addEventListener('click', exportMasterTrackerToCSV);
         document.getElementById('scoring-clear').addEventListener('click', clearCurrentForm);
-
         document.getElementById('view-pdf-button').addEventListener('click', openPdfViewerForCurrentApp);
-        
-        scoringMatrixInitialized = true;
-        updateMemberAndView(""); // Initial call to set the empty state
     }
     
-    function updateMemberAndView(memberName) {
-        currentMember = SCORING_DATA.COMMITTEE_MEMBERS.find(m => m.name === memberName) || null;
+    function updateMemberAndView() {
+        if (!currentUserProfile) return;
         
-        const filteredApps = getFilteredAppsForMember(currentMember);
-        
+        const filteredApps = getFilteredAppsForMember(currentUserProfile);
         populateApplicationDropdowns(filteredApps);
-        renderTaskList();
 
-        // If an application was selected, check if it's still in the filtered list. If not, clear the form.
         const currentRef = document.getElementById('scoring-ref').value;
         if (currentRef && !filteredApps.some(app => app.ref === currentRef)) {
             handleAppSelection('');
         } else {
-             handleAppSelection(currentRef); // Re-load scores for current selection
+            handleAppSelection(currentRef || (filteredApps.length > 0 ? filteredApps[0].ref : ''));
         }
+
+        if (taskListenerUnsubscribe) taskListenerUnsubscribe();
+        const q = query(scoresCollectionRef, where("scorerId", "==", auth.currentUser.uid));
+        taskListenerUnsubscribe = onSnapshot(q, (querySnapshot) => {
+            const userScores = [];
+            querySnapshot.forEach((doc) => {
+                userScores.push({ ref: doc.data().ref, ...doc.data() });
+            });
+            renderTaskList(userScores);
+        });
     }
     
-    function getFilteredAppsForMember(member) {
-        if (!member) return [];
-        if (member.area === 'Admin') return SCORING_DATA.APPLICATIONS; // Admins see all
+    function getFilteredAppsForMember(memberProfile) {
+        if (!memberProfile) return [];
+        if (memberProfile.role === 'admin') return SCORING_DATA.APPLICATIONS;
         
-        const memberAreaNormalized = member.area.replace(' - ', ' & ');
-
+        const memberArea = memberProfile.area;
         return SCORING_DATA.APPLICATIONS.filter(app => {
-            return app.area === memberAreaNormalized || app.area === 'Cross-Area Application';
+            return app.area === memberArea || app.area === 'Cross-Area Application';
         });
     }
 
     function populateApplicationDropdowns(apps) {
         const refSelect = document.getElementById('scoring-ref');
         const applicantSelect = document.getElementById('scoring-applicant');
-
-        const currentRef = refSelect.value; // Save current selection
+        const currentRef = refSelect.value; 
 
         refSelect.innerHTML = '<option value="">Select Reference...</option>';
         apps.forEach(app => refSelect.add(new Option(app.ref, app.ref)));
@@ -1969,49 +1765,31 @@
         applicantSelect.innerHTML = '<option value="">Select Applicant...</option>';
         apps.forEach(app => applicantSelect.add(new Option(app.applicant.trim(), app.ref)));
         
-        refSelect.value = currentRef; // Restore selection if possible
+        refSelect.value = currentRef; 
         applicantSelect.value = currentRef;
     }
 
-
-    function handleAppSelection(ref) {
+    async function handleAppSelection(ref) {
         document.getElementById('scoring-ref').value = ref;
         document.getElementById('scoring-applicant').value = ref;
 
         const app = SCORING_DATA.APPLICATIONS.find(a => a.ref === ref);
         document.getElementById('scoring-area').value = app ? app.area : '';
 
-        loadScoresForRef(ref);
+        await loadScoresForRef(ref);
     }
     
      function initializeAppsViewer() {
-        const memberSelect = document.getElementById('app-viewer-member');
-        if (memberSelect.options.length > 1) { // If already populated, just trigger the change
-            const selectedMember = SCORING_DATA.COMMITTEE_MEMBERS.find(m => m.name === memberSelect.value);
-            populateAppsViewerList(selectedMember);
-            return;
-        }
-
-        memberSelect.innerHTML = '<option value="">Select your name...</option>';
-        SCORING_DATA.COMMITTEE_MEMBERS.forEach(member => memberSelect.add(new Option(member.name, member.name)));
-        
-        memberSelect.addEventListener('change', (e) => {
-            const member = SCORING_DATA.COMMITTEE_MEMBERS.find(m => m.name === e.target.value);
-            populateAppsViewerList(member);
-        });
+        if (!currentUserProfile) return;
+        populateAppsViewerList(currentUserProfile);
     }
 
-    function populateAppsViewerList(member) {
+    function populateAppsViewerList(memberProfile) {
         const listContainer = document.getElementById('app-viewer-list');
-        const apps = getFilteredAppsForMember(member);
-        
+        const apps = getFilteredAppsForMember(memberProfile);
         listContainer.innerHTML = '';
         if (!apps || apps.length === 0) {
-             listContainer.innerHTML = `<p class="text-gray-500 text-center p-4">Please select your name to view applications.</p>`;
-             document.getElementById('app-viewer-display').innerHTML = `
-                <svg class="w-16 h-16 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <p>Select your name to populate the application list.</p>
-             `;
+             listContainer.innerHTML = `<p class="text-gray-500 text-center p-4">No applications assigned.</p>`;
              return;
         }
 
@@ -2027,19 +1805,18 @@
             listContainer.appendChild(button);
         });
     }
+    window.populateAppsViewerList = populateAppsViewerList;
+
 
     function viewApplication(ref) {
         const displayContainer = document.getElementById('app-viewer-display');
         const app = SCORING_DATA.APPLICATIONS.find(a => a.ref === ref);
         
-        // Highlight selected item in the list
          document.querySelectorAll('#app-viewer-list button').forEach(btn => {
             btn.classList.toggle('bg-purple-200', btn.dataset.ref === ref);
         });
 
-        // NOTE: Using a placeholder PDF. Replace this URL with actual application URLs.
         const pdfUrl = app.pdfUrl;
-
         displayContainer.innerHTML = `
              <div class="w-full p-2 bg-gray-100 rounded-t-lg border-b">
                 <h3 class="font-bold text-gray-800">${app.applicant} (${app.ref})</h3>
@@ -2047,7 +1824,8 @@
              <iframe src="${pdfUrl}" class="w-full h-full" title="PDF viewer for ${app.applicant}"></iframe>
         `;
     }
-    
+    window.viewApplication = viewApplication;
+
     function openPdfViewerForCurrentApp() {
         const ref = document.getElementById('scoring-ref').value;
         if (!ref) return;
@@ -2058,36 +1836,32 @@
         const iframe = document.getElementById('pdf-viewer-iframe');
 
         title.textContent = `${app.applicant} (${app.ref})`;
-        // NOTE: Using a placeholder PDF.
-        const pdfUrl = app.pdfUrl;
-        iframe.src = pdfUrl;
+        iframe.src = app.pdfUrl;
         
         if (!viewer.dataset.hasBeenMoved) {
             viewer.style.top = '50%';
             viewer.style.left = '50%';
             viewer.style.transform = 'translate(-50%, -50%)';
         }
-
         viewer.classList.remove('hidden');
     }
+    window.openPdfViewerForCurrentApp = openPdfViewerForCurrentApp;
 
     function closePdfViewer() {
         const viewer = document.getElementById('pdf-viewer-window');
         const iframe = document.getElementById('pdf-viewer-iframe');
-        iframe.src = 'about:blank'; // Stop PDF loading
+        iframe.src = 'about:blank'; 
         viewer.classList.add('hidden');
     }
+    window.closePdfViewer = closePdfViewer;
     
     function makePdfViewerDraggable() {
         const viewer = document.getElementById('pdf-viewer-window');
         const header = document.getElementById('pdf-viewer-header');
-        let isDragging = false;
-        let startX, startY, initialX, initialY;
+        let isDragging = false, startX, startY, initialX, initialY;
 
         header.addEventListener('mousedown', function (e) {
-            if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-                return;
-            }
+            if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
             e.preventDefault();
             isDragging = true;
             startX = e.clientX;
@@ -2104,7 +1878,6 @@
                  initialX = viewer.offsetLeft;
                  initialY = viewer.offsetTop;
             }
-            
             viewer.dataset.hasBeenMoved = 'true';
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
@@ -2114,10 +1887,8 @@
             if (isDragging) {
                 const dx = e.clientX - startX;
                 const dy = e.clientY - startY;
-                
                 const newX = Math.max(0, Math.min(initialX + dx, window.innerWidth - viewer.offsetWidth));
                 const newY = Math.max(0, Math.min(initialY + dy, window.innerHeight - viewer.offsetHeight));
-
                 viewer.style.left = `${newX}px`;
                 viewer.style.top = `${newY}px`;
             }
@@ -2130,26 +1901,24 @@
         }
     }
 
-
     // Task List Functions
     function loadTask(ref) {
         document.getElementById('scoring-ref').value = ref;
-        // This will trigger the 'change' event listener, which calls handleAppSelection
         document.getElementById('scoring-ref').dispatchEvent(new Event('change'));
     }
+    window.loadTask = loadTask;
 
-    function renderTaskList() {
+    function renderTaskList(userScores = []) {
         const container = document.getElementById('task-list-content');
         const summaryContainer = document.getElementById('task-list-summary');
         
-        if (!currentMember) {
-            container.innerHTML = `<p class="text-gray-500 p-2">Please select your name to see your task list.</p>`;
+        if (!currentUserProfile) {
+            container.innerHTML = `<p class="text-gray-500 p-2">Loading...</p>`;
             summaryContainer.innerHTML = '';
             return;
         }
 
-        const memberApps = getFilteredAppsForMember(currentMember);
-        
+        const memberApps = getFilteredAppsForMember(currentUserProfile);
         if (memberApps.length === 0) {
             container.innerHTML = `<p class="text-gray-500 p-2">No applications assigned to your area.</p>`;
             summaryContainer.innerHTML = '';
@@ -2158,207 +1927,173 @@
 
         let completedCount = 0;
         const tasksHtml = memberApps.map(app => {
-            const storageKey = `scoring_${currentMember.name.replace(/\s+/g, '_')}_${app.ref}`;
-            const savedData = JSON.parse(localStorage.getItem(storageKey));
-            
+            const scoreData = userScores.find(s => s.ref === app.ref);
             let statusBadge = '';
-            if (savedData && savedData.isFinal) {
+            if (scoreData && scoreData.isFinal) {
                 completedCount++;
                 statusBadge = '<span class="text-xs font-bold text-teal-600 bg-teal-100 px-2 py-1 rounded-full">Completed</span>';
-            } else if (savedData) {
+            } else if (scoreData) {
                 statusBadge = '<span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">In Progress</span>';
             } else {
                 statusBadge = '<span class="text-xs font-bold text-red-600 bg-red-100 px-2 py-1 rounded-full">Pending</span>';
             }
-            
-            return `
-                <button onclick="loadTask('${app.ref}')" class="w-full text-left p-2 rounded-md task-list-button">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm">${app.ref} - ${app.applicant}</span>
-                        ${statusBadge}
-                    </div>
-                </button>
-            `;
+            return `<button onclick="loadTask('${app.ref}')" class="w-full text-left p-2 rounded-md task-list-button"><div class="flex justify-between items-center"><span class="text-sm">${app.ref} - ${app.applicant}</span>${statusBadge}</div></button>`;
         }).join('');
         
         container.innerHTML = tasksHtml;
         
         const progress = (completedCount / memberApps.length) * 100;
         if (progress === 100 && memberApps.length > 0) {
-            summaryContainer.innerHTML = `<div class="text-center p-4 bg-teal-100 text-teal-800 rounded-lg mt-4 font-bold">🎉 All applications for your area are scored. Well done!</div>`;
+            summaryContainer.innerHTML = `<div class="text-center p-4 bg-teal-100 text-teal-800 rounded-lg mt-4 font-bold">🎉 All applications scored!</div>`;
         } else {
-            summaryContainer.innerHTML = `
-                <p class="text-sm font-semibold text-gray-700">${completedCount} of ${memberApps.length} applications scored.</p>
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
-                    <div class="bg-teal-600 h-2.5 rounded-full" style="width: ${progress}%"></div>
-                </div>
-            `;
+            summaryContainer.innerHTML = `<p class="text-sm font-semibold text-gray-700">${completedCount} of ${memberApps.length} scored.</p><div class="w-full bg-gray-200 rounded-full h-2.5 mt-1"><div class="bg-teal-600 h-2.5 rounded-full" style="width: ${progress}%"></div></div>`;
         }
     }
     
-    // Admin Master Tracker View
-    function deleteScore(ref, scorerName) {
-        if (confirm(`Are you sure you want to PERMANENTLY delete the score for application ${ref} submitted by '${scorerName}'? This action cannot be undone.`)) {
-            // 1. Delete from Master Tracker
-            const masterTracker = JSON.parse(localStorage.getItem('scoring_masterTracker') || '[]');
-            const newMasterTracker = masterTracker.filter(entry => !(entry.ref === ref && entry.scorer === scorerName));
-            localStorage.setItem('scoring_masterTracker', JSON.stringify(newMasterTracker));
-
-            // 2. Delete from individual's storage
-            const storageKey = `scoring_${scorerName.replace(/\s+/g, '_')}_${ref}`;
-            localStorage.removeItem(storageKey);
-
-            // 3. Re-render the view
-            renderMasterTrackerView();
+    // Admin Master Tracker
+    async function deleteScore(docId) {
+        if (confirm(`Are you sure you want to PERMANENTLY delete this score? This action cannot be undone.`)) {
+            try {
+                const docRef = doc(scoresCollectionRef, docId);
+                await deleteDoc(docRef);
+                console.log("Score deleted successfully");
+            } catch (error) {
+                console.error("Error deleting score: ", error);
+                alert("Failed to delete score. See console for details.");
+            }
         }
     }
+    window.deleteScore = deleteScore;
 
-    function renderMasterTrackerView() {
+    function initializeMasterTracker() {
+        if (masterTrackerUnsubscribe) masterTrackerUnsubscribe();
+        masterTrackerUnsubscribe = onSnapshot(scoresCollectionRef, (snapshot) => {
+            const allScores = [];
+            snapshot.forEach(doc => allScores.push({ id: doc.id, ...doc.data() }));
+            renderMasterTrackerView(allScores);
+        });
+    }
+
+    function renderMasterTrackerView(allScores) {
         const container = document.getElementById('master-tracker-view');
-        
-        if (sessionStorage.getItem('isAdmin') !== 'true') {
-            container.innerHTML = `
-                <div class="text-center p-8 bg-red-50 border-2 border-red-200 rounded-lg">
-                    <h2 class="text-2xl font-bold text-red-700 dynapuff">Access Denied</h2>
-                    <p class="text-red-600 mt-2">You must be an administrator to view the master tracker.</p>
-                </div>
-            `;
+        if (!currentUserProfile || currentUserProfile.role !== 'admin') {
+            container.innerHTML = `<div class="text-center p-8 bg-red-50 border-2 border-red-200 rounded-lg"><h2 class="text-2xl font-bold text-red-700 dynapuff">Access Denied</h2><p class="text-red-600 mt-2">You must be an administrator to view the master tracker.</p></div>`;
             return;
         }
 
-        const masterTracker = JSON.parse(localStorage.getItem('scoring_masterTracker') || '[]');
-        if (masterTracker.length === 0) {
+        if (allScores.length === 0) {
             container.innerHTML = `<p class="text-center text-gray-500">The Master Tracker is currently empty.</p>`;
             return;
         }
         
-         const scoresByApp = masterTracker.reduce((acc, score) => {
+         const scoresByApp = allScores.reduce((acc, score) => {
             if (!acc[score.ref]) {
                 const appDetails = SCORING_DATA.APPLICATIONS.find(a => a.ref === score.ref);
                 acc[score.ref] = { ...appDetails, scores: [] };
             }
-            acc[score.ref].scores.push({ scorer: score.scorer, totalScore: score.totalScore });
+            acc[score.ref].scores.push({ ...score });
             return acc;
         }, {});
-
 
         const appHtml = Object.values(scoresByApp).map(app => {
             const scoresHtml = app.scores.map(s => `
                 <div class="flex justify-between items-center text-sm p-2 bg-gray-50 rounded">
                     <div>
-                        <span class="font-semibold text-gray-700">${s.scorer}</span>
+                        <span class="font-semibold text-gray-700">${s.scorerName}</span>
                         <span class="font-bold text-purple-700 ml-4">${s.totalScore} / 100</span>
                     </div>
-                    <button onclick="deleteScore('${app.ref}', '${s.scorer.replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors" title="Delete this score">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                    </button>
+                    <button onclick="deleteScore('${s.id}')" class="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors" title="Delete this score"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                 </div>
             `).join('');
 
-            return `
-                <div class="border border-gray-200 rounded-lg overflow-hidden">
-                    <div class="bg-gray-100 p-3">
-                        <h4 class="font-bold text-lg text-purple-800 dynapuff">${app.applicant}</h4>
-                        <p class="text-sm text-gray-600">${app.ref} - ${app.area}</p>
-                    </div>
-                    <div class="p-3 space-y-2">${scoresHtml}</div>
-                </div>
-            `;
+            return `<div class="border border-gray-200 rounded-lg overflow-hidden"><div class="bg-gray-100 p-3"><h4 class="font-bold text-lg text-purple-800 dynapuff">${app.applicant}</h4><p class="text-sm text-gray-600">${app.ref} - ${app.area}</p></div><div class="p-3 space-y-2">${scoresHtml}</div></div>`;
         }).join('');
         
         container.innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${appHtml}</div>`;
     }
 
-    function renderAdminDashboard(areaFilter = 'All') {
+    function initializeAdminDashboard() {
+        const filterSelect = document.getElementById('admin-area-filter');
+        const render = (allScores) => {
+            if (!db) return; // Guard against premature rendering
+            const committeeMembersCollectionRef = collection(db, 'committeeMembers');
+            const q = query(committeeMembersCollectionRef, where("role", "==", "member"));
+            
+            onSnapshot(q, (snapshot) => {
+                let committeeMembers = [];
+                snapshot.forEach(doc => committeeMembers.push(doc.data()));
+                
+                if (filterSelect.value !== 'All') {
+                    committeeMembers = committeeMembers.filter(m => m.area === filterSelect.value);
+                }
+                renderAdminDashboard(committeeMembers, allScores);
+            });
+        };
+
+        if (adminDashboardUnsubscribe) adminDashboardUnsubscribe();
+        adminDashboardUnsubscribe = onSnapshot(scoresCollectionRef, (snapshot) => {
+            const allScores = [];
+            snapshot.forEach(doc => allScores.push(doc.data()));
+            render(allScores);
+        });
+
+        filterSelect.addEventListener('change', () => {
+             if (adminDashboardUnsubscribe) adminDashboardUnsubscribe();
+             adminDashboardUnsubscribe = onSnapshot(scoresCollectionRef, (snapshot) => {
+                const allScores = [];
+                snapshot.forEach(doc => allScores.push(doc.data()));
+                render(allScores);
+             });
+        });
+    }
+
+    function renderAdminDashboard(committeeMembers, allScores) {
         const container = document.getElementById('admin-dashboard-content');
         if (!container) return;
-
-        let committeeMembers = SCORING_DATA.COMMITTEE_MEMBERS.filter(m => m.area !== 'Admin');
-        
-        if (areaFilter && areaFilter !== 'All') {
-            committeeMembers = committeeMembers.filter(m => m.area === areaFilter);
-        }
-        
-        if (committeeMembers.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-500 py-8">No committee members found for the selected area.</p>`;
-            return;
-        }
         
         const memberCardsHtml = committeeMembers.map(member => {
             const assignedApps = getFilteredAppsForMember(member);
             let completedCount = 0;
-
             const applistHtml = assignedApps.map(app => {
-                const storageKey = `scoring_${member.name.replace(/\s+/g, '_')}_${app.ref}`;
-                const savedData = JSON.parse(localStorage.getItem(storageKey));
+                const score = allScores.find(s => s.scorerName === member.name && s.ref === app.ref);
                 let isComplete = false;
-                if (savedData && savedData.isFinal) {
+                if (score && score.isFinal) {
                     completedCount++;
                     isComplete = true;
                 }
-                return `
-                    <li class="flex justify-between items-center text-sm py-1">
-                        <span>${app.ref} - ${app.applicant}</span>
-                        ${isComplete 
-                            ? '<span class="text-xs font-semibold text-teal-700">Completed</span>'
-                            : '<span class="text-xs font-semibold text-red-700">Outstanding</span>'
-                        }
-                    </li>
-                `;
+                return `<li class="flex justify-between items-center text-sm py-1"><span>${app.ref}</span>${isComplete ? '<span class="text-xs font-semibold text-teal-700">Completed</span>' : '<span class="text-xs font-semibold text-red-700">Outstanding</span>'}</li>`;
             }).join('');
-            
             const totalCount = assignedApps.length;
             const progress = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
-
-            return `
-                <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold text-purple-800 dynapuff">${member.name}</h3>
-                    <p class="text-sm text-gray-600 mb-3">${member.area}</p>
-                    <div class="mb-2">
-                        <p class="text-sm font-semibold text-gray-700">${completedCount} of ${totalCount} applications scored.</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-1">
-                            <div class="bg-teal-600 h-2.5 rounded-full" style="width: ${progress}%"></div>
-                        </div>
-                    </div>
-                    <details>
-                        <summary class="text-sm font-semibold text-purple-600 cursor-pointer hover:underline">View Assigned Applications</summary>
-                        <ul class="mt-2 space-y-1 divide-y divide-gray-200">${applistHtml}</ul>
-                    </details>
-                </div>
-            `;
+            return `<div class="bg-white p-6 rounded-xl shadow-lg"><h3 class="text-xl font-bold text-purple-800 dynapuff">${member.name}</h3><p class="text-sm text-gray-600 mb-3">${member.area}</p><div class="mb-2"><p class="text-sm font-semibold text-gray-700">${completedCount} of ${totalCount} scored.</p><div class="w-full bg-gray-200 rounded-full h-2.5 mt-1"><div class="bg-teal-600 h-2.5 rounded-full" style="width: ${progress}%"></div></div></div><details><summary class="text-sm font-semibold text-purple-600 cursor-pointer hover:underline">View Assigned</summary><ul class="mt-2 space-y-1 divide-y divide-gray-200">${applistHtml}</ul></details></div>`;
         }).join('');
-
         container.innerHTML = `<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">${memberCardsHtml}</div>`;
     }
 
-    function deepClone(obj) {
-      return JSON.parse(JSON.stringify(obj));
-    }
+    function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
-    function loadScoresForRef(ref) {
+    async function loadScoresForRef(ref) {
         const finalizedMessage = document.getElementById('scoring-finalized-message');
-        const saveButton = document.getElementById('scoring-save-progress');
-        const postButton = document.getElementById('scoring-post-final');
+        const saveButton = document.getElementById('scoring-post-final'); 
         
         finalizedMessage.classList.add('hidden');
         document.getElementById('view-pdf-button').disabled = !ref;
 
-        if (!ref || !currentMember) {
+        if (!ref || !currentUserProfile) {
             currentScoringState = {};
             renderScoringMatrix([]);
             updateTotalsAndOutcome();
             return;
         }
+        
+        const docId = `${auth.currentUser.uid}_${ref}`;
+        const docRef = doc(scoresCollectionRef, docId);
+        const docSnap = await getDoc(docRef);
+        const savedData = docSnap.exists() ? docSnap.data() : {};
 
-        const storageKey = `scoring_${currentMember.name.replace(/\s+/g, '_')}_${ref}`;
-        const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
         const criteria = deepClone(SCORING_DATA.CRITERIA_TEMPLATE).map(c => {
             const savedCriterion = savedData.criteria ? savedData.criteria.find(sc => sc.id === c.id) : null;
-            return {
-                ...c,
-                score: savedCriterion ? savedCriterion.score : 0,
-                notes: savedCriterion ? savedCriterion.notes : '',
-            };
+            return { ...c, score: savedCriterion?.score ?? 0, notes: savedCriterion?.notes ?? '' };
         });
         
         currentScoringState = { ref, criteria, isFinal: savedData.isFinal || false };
@@ -2366,9 +2101,8 @@
         updateTotalsAndOutcome();
 
         const isFinal = savedData.isFinal || false;
-        document.querySelectorAll('#scoring-matrix-body input, #scoring-matrix-body textarea').forEach(el => el.disabled = isFinal);
+        document.querySelectorAll('#scoring-matrix-body input, #scoring-matrix-body textarea, #scoring-clear').forEach(el => el.disabled = isFinal);
         saveButton.disabled = isFinal;
-        postButton.disabled = isFinal;
 
         if(isFinal) {
             finalizedMessage.textContent = "These scores have been posted and are now read-only.";
@@ -2378,10 +2112,10 @@
     
     function renderScoringMatrix(criteria) {
         const tbody = document.getElementById('scoring-matrix-body');
-        tbody.innerHTML = ''; // Clear existing rows
+        tbody.innerHTML = ''; 
 
-        if (!currentMember) {
-             tbody.innerHTML = `<tr><td colspan="4" class="text-center text-gray-500 py-8">Please select your name to begin.</td></tr>`;
+        if (!currentUserProfile) {
+             tbody.innerHTML = `<tr><td colspan="4" class="text-center text-gray-500 py-8">Authenticating...</td></tr>`;
              return;
         }
         if (criteria.length === 0) {
@@ -2391,36 +2125,15 @@
 
         criteria.forEach(c => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td class="font-bold text-gray-800">
-                    <div class="flex items-center">
-                        <span>${c.name}</span>
-                        <div class="tooltip-container">
-                             <svg class="tooltip-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                             <div class="tooltip-text">${c.details}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="text-sm text-gray-600">${c.guidance}</td>
-                <td>
-                    <div class="flex items-center space-x-2">
-                         <input type="range" min="0" max="3" value="${c.score || 0}" class="score-slider w-full" data-id="${c.id}">
-                         <span class="font-bold text-purple-700 text-lg w-4 text-center">${c.score || 0}</span>
-                    </div>
-                </td>
-                <td>
-                    <textarea class="w-full p-2 border border-gray-300 rounded-md" rows="2" placeholder="Enter justification..." data-id="${c.id}">${c.notes || ''}</textarea>
-                </td>
-            `;
+            row.innerHTML = `<td class="font-bold text-gray-800"><div class="flex items-center"><span>${c.name}</span><div class="tooltip-container"><svg class="tooltip-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div class="tooltip-text">${c.details}</div></div></div></td><td class="text-sm text-gray-600">${c.guidance}</td><td><div class="flex items-center space-x-2"><input type="range" min="0" max="3" value="${c.score || 0}" class="score-slider w-full" data-id="${c.id}"><span class="font-bold text-purple-700 text-lg w-4 text-center">${c.score || 0}</span></div></td><td><textarea class="w-full p-2 border border-gray-300 rounded-md" rows="2" placeholder="Enter justification..." data-id="${c.id}">${c.notes || ''}</textarea></td>`;
             tbody.appendChild(row);
         });
 
-        // Add event listeners for new inputs
         tbody.querySelectorAll('input[type="range"]').forEach(input => {
             input.addEventListener('input', (e) => {
                 const id = e.target.dataset.id;
                 const score = parseInt(e.target.value, 10);
-                e.target.nextElementSibling.textContent = score; // Update number next to slider
+                e.target.nextElementSibling.textContent = score;
                 updateScore(id, score);
             });
         });
@@ -2438,7 +2151,7 @@
         const criterion = currentScoringState.criteria.find(c => c.id === criterionId);
         if (criterion) {
             criterion.score = score;
-            saveProgress(false); // Auto-save without user message
+            saveProgress();
             updateTotalsAndOutcome();
         }
     }
@@ -2448,7 +2161,7 @@
         const criterion = currentScoringState.criteria.find(c => c.id === criterionId);
         if (criterion) {
             criterion.notes = notes;
-            saveProgress(false); // Auto-save without user message
+            saveProgress();
         }
     }
 
@@ -2464,12 +2177,7 @@
             return;
         }
 
-        const totalScore = currentScoringState.criteria.reduce((acc, c) => {
-            const score = c.score || 0;
-            const weightedScore = (score / 3) * c.weight;
-            return acc + weightedScore;
-        }, 0);
-        
+        const totalScore = currentScoringState.criteria.reduce((acc, c) => acc + ((c.score || 0) / 3) * c.weight, 0);
         const finalScore = Math.round(totalScore);
         totalEl.textContent = `${finalScore} / 100`;
 
@@ -2485,154 +2193,110 @@
         }
     }
     
-    function saveProgress(isManual = false) {
-        if (currentScoringState.ref && currentMember && !currentScoringState.isFinal) {
-            const storageKey = `scoring_${currentMember.name.replace(/\s+/g, '_')}_${currentScoringState.ref}`;
-            // Ensure isFinal is false when just saving progress
-            const dataToSave = {...currentScoringState, isFinal: false};
-            localStorage.setItem(storageKey, JSON.stringify(dataToSave));
-            
-            if (isManual) {
-                const statusEl = document.getElementById('scoring-status');
-                statusEl.textContent = `Progress saved at ${new Date().toLocaleTimeString()}`;
-                setTimeout(() => statusEl.textContent = '', 2000);
+    async function saveProgress() {
+        if (currentScoringState.ref && currentUserProfile && !currentScoringState.isFinal) {
+            const docId = `${auth.currentUser.uid}_${currentScoringState.ref}`;
+            const docRef = doc(scoresCollectionRef, docId);
+            const dataToSave = {
+                ...currentScoringState,
+                scorerId: auth.currentUser.uid,
+                scorerName: currentUserProfile.name,
+                isFinal: false
+            };
+            try {
+                await setDoc(docRef, dataToSave, { merge: true });
+            } catch (error) {
+                console.error("Error saving progress:", error);
             }
-            
-            renderTaskList();
         }
     }
 
-    function postFinalScores() {
-        if (!currentScoringState.ref || !currentMember) {
-            alert('Please select an application and committee member first.');
+    async function postFinalScores() {
+        if (!currentScoringState.ref || !currentUserProfile) {
+            alert('Please select an application first.');
             return;
         }
 
         if (confirm(`Are you sure you want to post these scores as FINAL for ${currentScoringState.ref}? You will not be able to edit them after posting.`)) {
-            const storageKey = `scoring_${currentMember.name.replace(/\s+/g, '_')}_${currentScoringState.ref}`;
-            const finalScores = {...currentScoringState, isFinal: true};
-            localStorage.setItem(storageKey, JSON.stringify(finalScores));
-            
-            addToMasterTracker(finalScores);
+            const docId = `${auth.currentUser.uid}_${currentScoringState.ref}`;
+            const docRef = doc(scoresCollectionRef, docId);
+            const totalScore = Math.round(currentScoringState.criteria.reduce((acc, c) => acc + ((c.score || 0) / 3) * c.weight, 0));
+            const finalScores = {
+                ...currentScoringState,
+                scorerId: auth.currentUser.uid,
+                scorerName: currentUserProfile.name,
+                totalScore,
+                isFinal: true,
+                timestamp: new Date().toISOString()
+            };
 
-            const statusEl = document.getElementById('scoring-status');
-            statusEl.textContent = `Final scores posted for ${currentScoringState.ref}!`;
-            setTimeout(() => statusEl.textContent = '', 3000);
-            
-            renderTaskList();
-            loadScoresForRef(currentScoringState.ref); // Reload to lock the form
+            try {
+                await setDoc(docRef, finalScores);
+                const statusEl = document.getElementById('scoring-status');
+                statusEl.textContent = `Final scores posted for ${currentScoringState.ref}!`;
+                setTimeout(() => statusEl.textContent = '', 3000);
+                loadScoresForRef(currentScoringState.ref);
+            } catch (error) {
+                console.error("Error posting final scores: ", error);
+                alert("Failed to post scores. See console for details.");
+            }
         }
     }
 
-    function clearCurrentForm() {
+    async function clearCurrentForm() {
         const ref = document.getElementById('scoring-ref').value;
-        if (!ref || !currentMember) {
-            alert("Please select a member and an application first.");
+        if (!ref || !currentUserProfile) {
+            alert("Please select an application first.");
             return;
         }
-        if(confirm(`Are you sure you want to clear all scores and notes for ${ref}? This cannot be undone.`)) {
-            const storageKey = `scoring_${currentMember.name.replace(/\s+/g, '_')}_${ref}`;
-            localStorage.removeItem(storageKey);
-            
-            // Also remove from master tracker if it exists there
-            const masterTracker = JSON.parse(localStorage.getItem('scoring_masterTracker') || '[]');
-            const newMasterTracker = masterTracker.filter(entry => !(entry.ref === ref && entry.scorer === currentMember.name));
-            localStorage.setItem('scoring_masterTracker', JSON.stringify(newMasterTracker));
-
-            handleAppSelection(ref); // Reload to show cleared form
-            renderTaskList();
+        if(confirm(`Are you sure you want to clear all scores and notes for ${ref}? This will be permanently deleted.`)) {
+            const docId = `${auth.currentUser.uid}_${ref}`;
+            const docRef = doc(scoresCollectionRef, docId);
+            try {
+                await deleteDoc(docRef);
+                handleAppSelection(ref); // Reload to show cleared form
+            } catch (error) {
+                console.error("Error clearing form: ", error);
+                alert("Failed to clear form. See console for details.");
+            }
         }
     }
     
-    function addToMasterTracker(finalScores) {
-        const masterTracker = JSON.parse(localStorage.getItem('scoring_masterTracker') || '[]');
-        const existingIndex = masterTracker.findIndex(entry => entry.ref === finalScores.ref && entry.scorer === currentMember.name);
-
-        const totalScore = Math.round(finalScores.criteria.reduce((acc, c) => acc + ((c.score || 0) / 3) * c.weight, 0));
-
-        const newEntry = {
-            ref: finalScores.ref,
-            scorer: currentMember.name,
-            totalScore,
-            timestamp: new Date().toISOString(),
-            scores: finalScores.criteria.map(c => ({ id: c.id, score: c.score, notes: c.notes }))
-        };
-
-        if (existingIndex !== -1) {
-            masterTracker[existingIndex] = newEntry;
-        } else {
-            masterTracker.push(newEntry);
-        }
-
-        localStorage.setItem('scoring_masterTracker', JSON.stringify(masterTracker));
-    }
-
     function exportMasterTrackerToCSV() {
-        const masterTracker = JSON.parse(localStorage.getItem('scoring_masterTracker') || '[]');
-        if (masterTracker.length === 0) {
-            alert('Master Tracker is empty. Please save some scores first.');
-            return;
-        }
-
-        const headers = ['Reference', 'Applicant', 'Area', 'Scorer', 'Total Score', 'Timestamp'];
-        SCORING_DATA.CRITERIA_TEMPLATE.forEach(c => {
-            headers.push(`${c.name} Score`, `${c.name} Notes`);
-        });
-
-        const csvRows = [headers.join(',')];
-
-        masterTracker.forEach(entry => {
-            const app = SCORING_DATA.APPLICATIONS.find(a => a.ref === entry.ref);
-            const row = [
-                entry.ref,
-                app ? `"${app.applicant}"` : 'N/A',
-                app ? `"${app.area}"` : 'N/A',
-                `"${entry.scorer}"`,
-                entry.totalScore,
-                entry.timestamp
-            ];
-            SCORING_DATA.CRITERIA_TEMPLATE.forEach(c => {
-                const scoreData = entry.scores.find(s => s.id === c.id);
-                row.push(scoreData ? scoreData.score : 'N/A');
-                row.push(scoreData ? `"${(scoreData.notes || '').replace(/"/g, '""')}"` : '""');
-            });
-            csvRows.push(row.join(','));
-        });
-
-        const csvContent = "data:text/csv;charset=utf-8," + csvRows.join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "master_scoring_tracker.csv");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        alert("Export functionality to be implemented using Firestore data.");
     }
 
     // ----------------
     // INITIALIZATION
     // ----------------
-    document.addEventListener('DOMContentLoaded', () => {
-      const demoDate = new Date();
-      const eventDates = [
-        new Date('2025-05-31'), new Date('2025-06-20'), new Date('2025-08-01'),
-        new Date('2025-08-15'), new Date('2025-09-09'), new Date('2025-09-10'),
-        new Date('2025-09-20'), new Date('2025-10-01')
-      ];
-      for (let i = 0; i < eventDates.length; i++) {
-        if (demoDate <= eventDates[i]) {
-          activeMilestoneIndex = i;
-          break;
-        }
-        if (i === eventDates.length - 1) activeMilestoneIndex = i;
+    document.addEventListener('DOMContentLoaded', async () => {
+      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+      if (!firebaseConfig) {
+          console.error("Firebase config not found!");
+          document.body.innerHTML = "<h1>Error: Firebase configuration is missing.</h1>";
+          return;
       }
+
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      setLogLevel('debug');
       
-       if (sessionStorage.getItem('isCommitteeMember') === 'true' || sessionStorage.getItem('isAdmin') === 'true') {
-            const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
-            showPortalPage(isAdmin ? 'page-admin-dashboard' : 'page-portal-dashboard');
-        } else {
-            showPage('page-landing');
-        }
+      // Note: The collection path for scores is now at the root as per user's latest setup.
+      // This is less secure and might require adjusting security rules.
+      scoresCollectionRef = collection(db, 'scores'); 
+
+      onAuthStateChanged(auth, handleAuthState);
+      
+      // --- UI Initial Setup ---
+      showPage('page-landing');
+
+      const demoDate = new Date();
+      const eventDates = [new Date('2025-05-31'), new Date('2025-06-20'), new Date('2025-08-01'), new Date('2025-08-15'), new Date('2025-09-09'), new Date('2025-09-10'), new Date('2025-09-20'), new Date('2025-10-01')];
+      activeMilestoneIndex = eventDates.findIndex(d => demoDate <= d);
+      if(activeMilestoneIndex === -1) activeMilestoneIndex = eventDates.length - 1;
 
       new Swiper('.swiper', {
         loop: true,
@@ -2643,412 +2307,19 @@
       // --- Timeline Setup ---
       renderTimelineBar();
       setTimeout(() => showMilestoneDetail(activeMilestoneIndex), 100);
-      
-      makePdfViewerDraggable(); // Make the viewer draggable
+      makePdfViewerDraggable();
 
       const timelineContainer = document.getElementById('timeline-scroll-container');
       const prevButton = document.getElementById('timeline-prev');
       const nextButton = document.getElementById('timeline-next');
-      const zoomInButton = document.getElementById('timeline-zoom-in');
-      const zoomOutButton = document.getElementById('timeline-zoom-out');
-      const fullscreenButton = document.getElementById('timeline-fullscreen-toggle');
-
-      if (timelineContainer) {
-        timelineContainer.addEventListener('scroll', updateTimelineNav);
-      }
-      if (prevButton) {
-        prevButton.addEventListener('click', () => {
-            const scrollAmount = timelineContainer.clientWidth * 0.75;
-            timelineContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-      }
-      if (nextButton) {
-        nextButton.addEventListener('click', () => {
-            const scrollAmount = timelineContainer.clientWidth * 0.75;
-            timelineContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-      }
-      if(zoomInButton) {
-        zoomInButton.addEventListener('click', () => setTimelineScale(timelineScale + 0.2));
-      }
-      if(zoomOutButton) {
-        zoomOutButton.addEventListener('click', () => setTimelineScale(timelineScale - 0.2));
-      }
-      if(fullscreenButton) {
-        fullscreenButton.addEventListener('click', toggleTimelineFullscreen);
-      }
+      
+      if(timelineContainer) timelineContainer.addEventListener('scroll', updateTimelineNav);
+      if(prevButton) prevButton.addEventListener('click', () => timelineContainer.scrollBy({ left: -timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
+      if(nextButton) nextButton.addEventListener('click', () => timelineContainer.scrollBy({ left: timelineContainer.clientWidth * 0.75, behavior: 'smooth' }));
+      document.getElementById('timeline-zoom-in')?.addEventListener('click', () => setTimelineScale(timelineScale + 0.2));
+      document.getElementById('timeline-zoom-out')?.addEventListener('click', () => setTimelineScale(timelineScale - 0.2));
+      document.getElementById('timeline-fullscreen-toggle')?.addEventListener('click', toggleTimelineFullscreen);
     });
   </script>
-
-<script>
-  const portalNav = document.getElementById('portal-nav');
-  const mainNav = document.getElementById('main-nav');
-  function setPortalVisible(isVisible){
-    if (portalNav) portalNav.classList.toggle('hidden', !isVisible);
-    if (mainNav) mainNav.classList.toggle('hidden', isVisible);
-  }
-  function showPortalPage(pageId){
-    if (!auth.currentUser){ return showPage('page-portal-login'); }
-    document.querySelectorAll('.portal-page').forEach(p => p.style.display = 'none');
-    const page = document.getElementById(pageId);
-    if (page) page.style.display = 'block';
-  }
-  function showPage(pageId){
-    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-    const page = document.getElementById(pageId);
-    if (page) page.style.display = 'block';
-  }
-  let currentProfile = null;
-
-  async function fetchProfile(uid){
-    const doc = await db.collection('committeeMembers').doc(uid).get();
-    if (!doc.exists) throw new Error('No committee profile found for this account.');
-    const data = doc.data();
-    if (data.isActive === false) throw new Error('Your account is inactive. Contact TVA admin.');
-    return { id: doc.id, ...data };
-  }
-  function authError(msg){ const el = document.getElementById('portal-login-message'); if (el) el.textContent = (msg && msg.message) ? msg.message : msg; }
-
-  document.addEventListener('click', async (e) => {
-    if (e.target && e.target.id === 'btn-login'){
-      const ident = (document.getElementById('login-identifier').value||'').trim();
-      const pw = (document.getElementById('login-password').value||'').trim();
-      try {
-        let email = ident.toLowerCase();
-        if (!ident.includes('@')){
-          if(!/^[a-z]{1,3}-[a-z]+$/.test(email)){ return authError('Use username like pg-blaenavon or enter your email'); }
-          email = `${email}@users.local`;
-        }
-        await auth.signInWithEmailAndPassword(email, pw);
-      } catch(err){ authError(err); }
-    }
-    if (e.target && e.target.id === 'btn-reset'){
-      const ident = (document.getElementById('login-identifier').value||'').trim();
-      if (ident && ident.includes('@')){
-        auth.sendPasswordResetEmail(ident).then(()=>authError('Password reset email sent.')).catch(err=>authError(err));
-      } else {
-        authError('Ask an admin to reset your password.');
-      }
-    }
-  });
-
-  auth.onAuthStateChanged(async (user) => {
-    if (user){
-      try {
-        currentProfile = await fetchProfile(user.uid);
-        setPortalVisible(true);
-        enableAdminIfAllowed();
-        showPortalPage('page-portal-dashboard');
-        await loadMyDashboard();
-      } catch(err){
-        authError(err);
-        await auth.signOut();
-      }
-    } else {
-      currentProfile = null;
-      setPortalVisible(false);
-      showPage('page-portal-login');
-    }
-  });
-
-  async function logout(){ await auth.signOut(); }
-
-  async function loadAssignedApplications(){
-    if (!currentProfile) return [];
-    const q = await db.collection('applications')
-      .where('area','==', currentProfile.area)
-      .where('assignedTo','array-contains', auth.currentUser.uid)
-      .get();
-    return q.docs.map(d => ({ id: d.id, ...d.data() }));
-  }
-  async function loadMyScores(){
-    if (!currentProfile) return [];
-    const q = await db.collection('scores')
-      .where('uid','==', auth.currentUser.uid)
-      .where('area','==', currentProfile.area)
-      .get();
-    return q.docs.map(d => ({ id: d.id, ...d.data() }));
-  }
-  async function loadMyTasks(){
-    if (!currentProfile) return [];
-    const q = await db.collection('tasks')
-      .where('uid','==', auth.currentUser.uid)
-      .where('area','==', currentProfile.area)
-      .orderBy('createdAt','desc')
-      .get();
-    return q.docs.map(d => ({ id: d.id, ...d.data() }));
-  }
-
-  async function loadMyDashboard(){
-    const root = document.getElementById('page-portal-dashboard');
-    if (!root) return;
-    const tasks = await loadMyTasks();
-    const apps = await loadAssignedApplications();
-    const myScores = await loadMyScores();
-    const scoredRefs = new Set(myScores.map(s => s.ref));
-    const toScore = apps.filter(a => !scoredRefs.has(a.ref || a.id));
-    const alreadyScored = apps.filter(a => scoredRefs.has(a.ref || a.id));
-
-    function card(title, html){ return `<div class="bg-white p-6 rounded-2xl shadow"><h3 class="text-xl font-bold text-purple-800 dynapuff mb-3">${title}</h3>${html}</div>`; }
-    const tasksHTML = tasks.length ? `<ul class="list-disc ml-6">${tasks.map(t=>`<li>${t.title||'Task'} — <span class="text-gray-600">${t.status||'open'}</span></li>`).join('')}</ul>` : `<p class="text-gray-600">No tasks assigned.</p>`;
-    const toScoreHTML = toScore.length ? `<div class="grid sm:grid-cols-2 gap-3">${toScore.map(a=>`<div class="border rounded-lg p-3"><div class="font-semibold">${a.applicant||a.id}</div><div class="text-sm text-gray-600">${a.ref||a.id} • ${a.area}</div><button class="mt-2 bg-purple-600 hover:bg-purple-700 text-white text-sm px-3 py-1 rounded" onclick="openScoringForRef('${a.ref||a.id}')">Score now</button></div>`).join('')}</div>` : `<p class="text-gray-600">Nothing to score right now.</p>`;
-    const scoredHTML = alreadyScored.length ? `<div class="grid sm:grid-cols-2 gap-3">${alreadyScored.map(a=>`<div class="border rounded-lg p-3"><div class="font-semibold">${a.applicant||a.id}</div><div class="text-sm text-gray-600">${a.ref||a.id} • ${a.area}</div><button class="mt-2 bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded" onclick="openScoringForRef('${a.ref||a.id}')">View my score</button></div>`).join('')}</div>` : `<p class="text-gray-600">You haven’t scored any applications yet.</p>`;
-
-    const htmlBlock = `<div class="space-y-8">${card('My Tasks', tasksHTML)}${card('Applications to Score', toScoreHTML)}${card('Already Scored', scoredHTML)}</div>`;
-    const grids = root.querySelectorAll('.grid.grid-cols-1');
-    if (grids.length){ const parent = grids[0].parentElement; parent.innerHTML = htmlBlock; }
-    else { const container = document.createElement('div'); container.innerHTML = htmlBlock; root.appendChild(container); }
-  }
-
-  async function openScoringForRef(refId){
-    showPortalPage('page-scoring');
-    const memberSel = document.getElementById('scoring-member');
-    if (memberSel){
-      const who = (currentProfile && (currentProfile.name || currentProfile.username)) || (auth.currentUser && auth.currentUser.email) || 'Me';
-      memberSel.innerHTML = `<option value="${auth.currentUser.uid}" selected>${who}</option>`;
-      memberSel.disabled = true;
-    }
-    const refSel = document.getElementById('scoring-ref');
-    const appSel = document.getElementById('scoring-applicant');
-    const areaInput = document.getElementById('scoring-area');
-    const viewBtn = document.getElementById('view-pdf-button');
-
-    const snap = await db.collection('applications').doc(refId).get().catch(async () => {
-      const q = await db.collection('applications').where('ref','==', refId).limit(1).get();
-      return q.empty ? null : q.docs[0];
-    });
-    if (!snap || !snap.exists){ return alert('Application not found or you do not have access.'); }
-    const app = { id: snap.id, ...snap.data() };
-    if (app.area !== currentProfile.area && currentProfile.area !== 'all'){ return alert('This application is not in your area.'); }
-
-    if (refSel){ refSel.innerHTML = `<option value="${app.ref || app.id}" selected>${app.ref || app.id}</option>`; refSel.disabled = true; }
-    if (appSel){ appSel.innerHTML = `<option value="${app.applicant || app.id}" selected>${app.applicant || app.id}</option>`; appSel.disabled = true; }
-    if (areaInput){ areaInput.value = app.area; }
-    if (viewBtn){
-      viewBtn.disabled = !app.files || !app.files.pdfUrl;
-      viewBtn.onclick = () => openPdfViewer(app.files?.pdfUrl || '#');
-      viewBtn.textContent = "View Application PDF";
-    }
-    await loadScoreIntoMatrix(app.ref || app.id);
-  }
-
-  document.addEventListener('click', async (e) => {
-    if (e.target && e.target.closest('[onclick="showPortalPage(\'page-scoring\')"]')){
-      const apps = await loadAssignedApplications();
-      if (apps.length) { openScoringForRef(apps[0].ref || apps[0].id); } else { showPortalPage('page-scoring'); }
-    }
-  });
-
-  async function loadScoreIntoMatrix(refId){
-    const q = await db.collection('scores')
-      .where('uid','==', auth.currentUser.uid)
-      .where('area','==', currentProfile.area === 'all' ? (document.getElementById('scoring-area').value || '') : currentProfile.area)
-      .where('ref','==', refId).limit(1).get();
-    const doc = q.empty ? null : q.docs[0];
-    const data = doc ? doc.data() : null;
-    const rows = document.querySelectorAll('#scoring-matrix-body tr');
-    rows.forEach(row => {
-      const slider = row.querySelector('input[type="range"].score-slider');
-      const note = row.querySelector('textarea');
-      const key = row.getAttribute('data-criterion-key') || row.cells[0]?.innerText?.trim() || '';
-      if (!key) return;
-      if (data && data.criteria && key in data.criteria){ if (slider) slider.value = data.criteria[key]; }
-      if (data && data.notesByCriterion && key in data.notesByCriterion){ if (note) note.value = data.notesByCriterion[key]; }
-    });
-    const banner = document.getElementById('scoring-finalized-message');
-    if (banner){
-      const fin = !!(data && data.finalized);
-      banner.classList.toggle('hidden', !fin);
-      banner.textContent = fin ? "This scoring has been finalized and is read-only." : "";
-      const inputs = document.querySelectorAll('#scoring-matrix-body input, #scoring-matrix-body textarea, #scoring-actions button.save-score');
-      inputs.forEach(i => i.disabled = fin);
-    }
-  }
-
-  async function saveCurrentScore(refId){
-    const rows = document.querySelectorAll('#scoring-matrix-body tr');
-    const criteria = {};
-    const notesByCriterion = {};
-    rows.forEach(row => {
-      const slider = row.querySelector('input[type="range"].score-slider');
-      const note = row.querySelector('textarea');
-      const key = row.getAttribute('data-criterion-key') || row.cells[0]?.innerText?.trim() || '';
-      if (!key) return;
-      if (slider) criteria[key] = Number(slider.value);
-      if (note) notesByCriterion[key] = note.value.trim();
-    });
-    const total = Object.values(criteria).reduce((a,b)=>a + (Number(b)||0), 0);
-    const payload = {
-      ref: refId,
-      uid: auth.currentUser.uid,
-      userName: (currentProfile && (currentProfile.name || currentProfile.username)) || (auth.currentUser && auth.currentUser.email) || 'Me',
-      area: currentProfile.area === 'all' ? (document.getElementById('scoring-area').value || '') : currentProfile.area,
-      criteria, notesByCriterion, total,
-      finalized: false,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    const id = `${auth.currentUser.uid}_${refId}`;
-    await db.collection('scores').doc(id).set(payload, { merge: true });
-  }
-
-  document.addEventListener('click', async (e) => {
-    const btn = e.target.closest('button.save-score');
-    if (btn){
-      const refSel = document.getElementById('scoring-ref');
-      const refId = refSel ? (refSel.value || '').trim() : '';
-      if (!refId) return alert('No reference selected.');
-      try { await saveCurrentScore(refId); alert('Saved!'); } catch (err){ alert(err.message); }
-    }
-  });
-
-  async function renderApplicationsList(){
-    const root = document.getElementById('page-portal-apps');
-    if (!root || !currentProfile) return;
-    const apps = await loadAssignedApplications();
-    const list = document.createElement('div');
-    list.className = "grid md:grid-cols-2 gap-4 apps-list-render";
-    list.innerHTML = apps.length ? apps.map(a => `
-        <div class="bg-white p-4 rounded-xl shadow">
-          <div class="font-semibold">${a.applicant || a.id}</div>
-          <div class="text-sm text-gray-600">${a.ref || a.id} • ${a.area}</div>
-          <div class="mt-2 flex gap-2">
-            <button class="bg-teal-500 hover:bg-teal-600 text-white text-sm px-3 py-1 rounded" onclick="openPdfViewer('${(a.files && a.files.pdfUrl) ? a.files.pdfUrl : '#'}')">View PDF</button>
-            <button class="bg-purple-600 hover:bg-purple-700 text-white text-sm px-3 py-1 rounded" onclick="openScoringForRef('${a.ref || a.id}')">Score</button>
-          </div>
-        </div>
-    `).join('') : '<p class="text-gray-600">No applications assigned to you yet.</p>';
-    const existing = root.querySelector('.apps-list-render');
-    if (existing) existing.remove();
-    root.appendChild(list);
-  }
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[onclick="showPortalPage(\'page-portal-apps\')"]');
-    if (btn){ setTimeout(renderApplicationsList, 100); }
-  });
-
-  function openPdfViewer(url){ if (!url || url === '#') return alert('No PDF available.'); window.open(url, '_blank'); }
-
-  function enableAdminIfAllowed(){
-    if (!currentProfile) return;
-    const adminNav = document.getElementById('admin-nav');
-    if (adminNav){
-      const isAdmin = (currentProfile.role === 'admin' || currentProfile.area === 'all');
-      adminNav.classList.toggle('hidden', !isAdmin);
-    }
-  }
-  function adminShowTab(which){
-    const tabs = ['members','applications','scores','import'];
-    tabs.forEach(t => document.getElementById('admin-tab-' + t).classList.add('hidden'));
-    document.getElementById('admin-tab-' + which).classList.remove('hidden');
-    if (which === 'members') adminLoadMembers();
-    if (which === 'applications') adminLoadApplications();
-  }
-  async function adminSaveMember(){
-    if (!currentProfile || currentProfile.role !== 'admin') return alert('Admin only');
-    const uid = document.getElementById('adm-uid').value.trim();
-    const username = document.getElementById('adm-username').value.trim().toLowerCase();
-    const name = document.getElementById('adm-name').value.trim();
-    const area = document.getElementById('adm-area').value;
-    const role = document.getElementById('adm-role').value;
-    const isActive = document.getElementById('adm-active').value === 'true';
-    if (!uid) return alert('UID required (from Authentication)');
-    if (!/^[a-z]{1,3}-[a-z]+$/.test(username)) return alert('Username format: initials-area (e.g., pg-blaenavon)');
-    const email = `${username}@users.local`;
-    await db.collection('committeeMembers').doc(uid).set({ name, email, username, role, area, isActive }, { merge: true });
-    alert('Saved member profile.');
-    adminLoadMembers();
-  }
-  function adminClearMemberForm(){
-    ['adm-uid','adm-username','adm-name'].forEach(id => document.getElementById(id).value='');
-    document.getElementById('adm-role').value = 'member';
-    document.getElementById('adm-area').selectedIndex = 0;
-    document.getElementById('adm-active').value = 'true';
-    const el = document.getElementById('adm-prov-email');
-    if (el) el.textContent = 'username@users.local';
-  }
-  async function adminLoadMembers(){
-    if (!currentProfile || currentProfile.role !== 'admin') return;
-    const filter = document.getElementById('adm-filter-area').value;
-    let q = db.collection('committeeMembers');
-    if (filter !== 'all'){ q = q.where('area', '==', filter); }
-    const snap = await q.get();
-    const rows = snap.docs.map(d => ({id:d.id, ...d.data()}));
-    const el = document.getElementById('adm-members-list');
-    if (!rows.length){ el.innerHTML = '<p class="text-gray-600">No members.</p>'; return; }
-    el.innerHTML = `<table class="w-full border">
-      <thead><tr class="bg-gray-50"><th class="p-2 text-left">UID</th><th class="p-2 text-left">Username</th><th class="p-2 text-left">Name</th><th class="p-2 text-left">Area</th><th class="p-2">Role</th><th class="p-2">Active</th></tr></thead>
-      <tbody>${rows.map(r => `<tr class="border-t"><td class="p-2 text-xs">${r.id}</td><td class="p-2">${r.username||''}</td><td class="p-2">${r.name||''}</td><td class="p-2">${r.area||''}</td><td class="p-2 text-center">${r.role||''}</td><td class="p-2 text-center">${r.isActive?'✅':'❌'}</td></tr>`).join('')}</tbody></table>`;
-  }
-  document.addEventListener('input', (e) => {
-    if (e.target && e.target.id === 'adm-username'){
-      const u = e.target.value.trim().toLowerCase();
-      const el = document.getElementById('adm-prov-email');
-      if (el) el.textContent = u ? `${u}@users.local` : 'username@users.local';
-    }
-  });
-  async function adminLoadApplications(){
-    if (!currentProfile || currentProfile.role !== 'admin') return;
-    const area = document.getElementById('adm-app-area').value;
-    const snap = await db.collection('applications').where('area','==', area).get();
-    const rows = snap.docs.map(d => ({id:d.id, ...d.data()}));
-    const el = document.getElementById('adm-applications-list');
-    if (!rows.length){ el.innerHTML = '<p class="text-gray-600">No applications found for this area.</p>'; return; }
-    el.innerHTML = rows.map(a => `<div class="border rounded p-2 mb-2"><div class="font-semibold">${a.ref || a.id} — ${a.applicant||''}</div><div class="text-xs text-gray-600">assignedTo: ${(a.assignedTo||[]).join(', ')||'-'}</div><div class="text-xs text-gray-600">pdf: ${a.files && a.files.pdfUrl ? a.files.pdfUrl : '-'}</div></div>`).join('');
-  }
-  async function adminAssignMembers(){
-    if (!currentProfile || currentProfile.role !== 'admin') return;
-    const ref = document.getElementById('adm-assign-ref').value.trim();
-    const raw = document.getElementById('adm-assign-uids').value.trim();
-    const action = document.getElementById('adm-assign-action').value;
-    if (!ref) return alert('Ref required');
-    const uids = raw ? raw.split(',').map(s=>s.trim()).filter(Boolean) : [];
-    const docRef = db.collection('applications').doc(ref);
-    const snap = await docRef.get();
-    if (!snap.exists){ return alert('Application not found'); }
-    let assigned = Array.isArray(snap.data().assignedTo) ? [...snap.data().assignedTo] : [];
-    if (action === 'add'){ uids.forEach(u => { if(!assigned.includes(u)) assigned.push(u); }); }
-    if (action === 'remove'){ assigned = assigned.filter(u => !uids.includes(u)); }
-    if (action === 'set'){ assigned = uids; }
-    await docRef.set({ assignedTo: assigned }, { merge: true });
-    alert('Assignment updated.');
-    adminLoadApplications();
-  }
-  async function adminLoadScores(){
-    if (!currentProfile || currentProfile.role !== 'admin') return;
-    const ref = document.getElementById('adm-score-ref').value.trim();
-    if (!ref) return alert('Ref required');
-    const snap = await db.collection('scores').where('ref','==', ref).get();
-    const rows = snap.docs.map(d => ({id:d.id, ...d.data()}));
-    const el = document.getElementById('adm-scores-list');
-    if (!rows.length){ el.innerHTML = '<p class="text-gray-600">No scores yet.</p>'; return; }
-    el.innerHTML = `<table class="w-full border"><thead><tr class="bg-gray-50"><th class="p-2 text-left">ID</th><th class="p-2">UID</th><th class="p-2">Area</th><th class="p-2">Total</th><th class="p-2">Finalized</th></tr></thead><tbody>${rows.map(r => `<tr class="border-t"><td class="p-2 text-xs">${r.id}</td><td class="p-2 text-xs">${r.uid}</td><td class="p-2">${r.area||''}</td><td class="p-2">${r.total||0}</td><td class="p-2">${r.finalized?'✅':'❌'}</td></tr>`).join('')}</tbody></table>`;
-  }
-  async function adminSetFinalized(){
-    if (!currentProfile || currentProfile.role !== 'admin') return;
-    const ref = document.getElementById('adm-fin-ref').value.trim();
-    const uid = document.getElementById('adm-fin-uid').value.trim();
-    const state = document.getElementById('adm-fin-state').value === 'true';
-    if (!ref || !uid) return alert('Ref and UID required');
-    const id = `${uid}_${ref}`;
-    const docRef = db.collection('scores').doc(id);
-    await docRef.set({ finalized: state }, { merge: true });
-    alert('Score updated.');
-  }
-  function adminBulkImport(){
-    if (!currentProfile || currentProfile.role !== 'admin') return alert('Admin only');
-    const coll = document.getElementById('adm-import-collection').value;
-    const txt = document.getElementById('adm-import-json').value.trim();
-    if (!txt) return alert('Paste some JSON');
-    let obj;
-    try { obj = JSON.parse(txt); } catch(e){ return alert('Invalid JSON'); }
-    const batch = db.batch();
-    for (const [id, data] of Object.entries(obj)){
-      const ref = db.collection(coll).doc(id);
-      batch.set(ref, data, { merge: true });
-    }
-    batch.commit().then(() => alert('Import complete')).catch(err => alert(err.message));
-  }
-</script>
-
 </body>
 </html>
