@@ -2333,6 +2333,7 @@
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 
 <!-- Firebase Configuration -->
 <script>
@@ -2347,30 +2348,39 @@
   };
 
   firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 </script>
 
-<!-- Login Script -->
+<!-- Login Logic -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const loginBtn = document.getElementById("login-btn");
-    if (loginBtn) {
-      loginBtn.addEventListener("click", function () {
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const message = document.getElementById("login-message");
+  document.getElementById("login-btn").addEventListener("click", function () {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("login-message");
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            message.textContent = "Success! Redirecting...";
-            setTimeout(() => {
-              window.location.href = "committee-portal.html";
-            }, 1500);
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        message.textContent = "Login successful. Checking profile...";
+        const userId = userCredential.user.uid;
+
+        db.collection("users").doc(userId).get()
+          .then((doc) => {
+            if (doc.exists) {
+              message.textContent = "Success! Redirecting...";
+              setTimeout(() => {
+                window.location.href = "committee-portal.html";
+              }, 1500);
+            } else {
+              message.textContent = "User profile not found.";
+            }
           })
           .catch((error) => {
-            message.textContent = "Login failed: " + error.message;
+            message.textContent = "Error fetching profile: " + error.message;
           });
+      })
+      .catch((error) => {
+        message.textContent = "Login failed: " + error.message;
       });
-    }
   });
 </script>
 
