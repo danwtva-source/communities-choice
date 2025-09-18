@@ -89,6 +89,17 @@ function showPortalPage(pageId) {
       });
   }
 </script>
+  function showPortalPage(pageId) {
+    // Hide all portal pages
+    document.querySelectorAll('.portal-page').forEach(page => {
+        page.style.display = 'none';
+    });
+    // Show the requested page
+    document.getElementById(pageId).style.display = 'block';
+    // Hide public nav, show portal nav (optional)
+    document.getElementById('main-nav').style.display = 'none';
+    document.getElementById('portal-nav').style.display = 'flex';
+}
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
