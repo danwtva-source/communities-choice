@@ -88,8 +88,19 @@ function showPortalPage(pageId) {
         document.getElementById('login-message').textContent = msg;
       });
   }
+     function showPortalPage(pageId) {
+    // Hide all portal pages
+    document.querySelectorAll('.portal-page').forEach(page => {
+        page.style.display = 'none';
+    });
+    // Show the requested page
+    document.getElementById(pageId).style.display = 'block';
+    // Hide public nav, show portal nav (optional)
+    document.getElementById('main-nav').style.display = 'none';
+    document.getElementById('portal-nav').style.display = 'flex';
+}
 </script>
- <script>
+
   function showPortalPage(pageId) {
     // Hide all portal pages
     document.querySelectorAll('.portal-page').forEach(page => {
@@ -101,7 +112,7 @@ function showPortalPage(pageId) {
     document.getElementById('main-nav').style.display = 'none';
     document.getElementById('portal-nav').style.display = 'flex';
 }
-   </script>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
