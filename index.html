@@ -922,7 +922,19 @@ function showPortalPage(pageId) {
             </div>
         </div>
     </div>
-    
+    <script>
+function showPortalPage(pageId) {
+    // Hide all portal pages
+    document.querySelectorAll('.portal-page').forEach(page => {
+        page.style.display = 'none';
+    });
+    // Show the requested page
+    document.getElementById(pageId).style.display = 'block';
+    // Hide the main navigation, show the portal navigation
+    document.getElementById('main-nav').style.display = 'none';
+    document.getElementById('portal-nav').style.display = 'flex';
+}
+</script>
     <!-- ADMIN DASHBOARD -->
     <div id="page-admin-dashboard" class="portal-page">
          <div class="w-full max-w-7xl mx-auto my-8 px-4">
