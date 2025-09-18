@@ -4,7 +4,29 @@
   <meta charset="UTF-8">
   <title>Communities' Choice PB Initiative - Torfaen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Firebase JS SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
+  <script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
+    authDomain: "communities-choice-portal.firebaseapp.com",
+    projectId: "communities-choice-portal",
+    storageBucket: "communities-choice-portal.firebasestorage.app",
+    messagingSenderId: "77753238309",
+    appId: "1:77753238309:web:b7bc1381f9478ccbff90cc",
+    measurementId: "G-KMGCMW8840"
+  };
 
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Initialize services
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
