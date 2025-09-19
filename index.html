@@ -4,101 +4,6 @@
   <meta charset="UTF-8">
   <title>Communities' Choice PB Initiative - Torfaen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Firebase JS SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js"></script>
-  <script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
-    authDomain: "communities-choice-portal.firebaseapp.com",
-    projectId: "communities-choice-portal",
-    storageBucket: "communities-choice-portal.firebasestorage.app",
-    messagingSenderId: "77753238309",
-    appId: "1:77753238309:web:b7bc1381f9478ccbff90cc",
-    measurementId: "G-KMGCMW8840"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  // Initialize services
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-</script>
-  <script>
-  // Login function for portal login page
-  function login() {
-    const username = document.getElementById('login-username').value.trim();
-    const password = document.getElementById('login-password').value;
-
-    // This example assumes usernames are emails. Adjust as needed.
-    const email = username.includes('@') ? username : username + "@yourdomain.com";
-
-    // Clear any previous message
-    document.getElementById('login-message').textContent = "";
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const uid = userCredential.user.uid;
-        // Fetch profile from Firestore
-        return db.collection('committeeMembers').doc(uid).get();
-      })
-      .then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          // Redirect based on role
-          if (data.role === 'admin') {
-            showPortalPage('page-admin-dashboard');
-          } else if (data.role === 'member') {
-            showPortalPage('page-portal-dashboard');
-          } else {
-            document.getElementById('login-message').textContent = "Unknown role. Please contact support.";
-          }
-          // Optionally show/hide navs, etc.
-        } else {
-          document.getElementById('login-message').textContent = "Profile not found. Please contact the administrator.";
-        }
-      })
-      .catch((error) => {
-        let msg = "Login failed. ";
-        if (error.code === 'auth/user-not-found') {
-          msg += "User not found.";
-        } else if (error.code === 'auth/wrong-password') {
-          msg += "Wrong password.";
-        } else if (error.code === 'permission-denied') {
-          msg += "You do not have permission to access this portal.";
-        } else {
-          msg += error.message;
-        }
-        document.getElementById('login-message').textContent = msg;
-      });
-  }
-     function showPortalPage(pageId) {
-    // Hide all portal pages
-    document.querySelectorAll('.portal-page').forEach(page => {
-        page.style.display = 'none';
-    });
-    // Show the requested page
-    document.getElementById(pageId).style.display = 'block';
-    // Hide public nav, show portal nav (optional)
-    document.getElementById('main-nav').style.display = 'none';
-    document.getElementById('portal-nav').style.display = 'flex';
-}
-
-  function showPortalPage(pageId) {
-    // Hide all portal pages
-    document.querySelectorAll('.portal-page').forEach(page => {
-        page.style.display = 'none';
-    });
-    // Show the requested page
-    document.getElementById(pageId).style.display = 'block';
-    // Hide public nav, show portal nav (optional)
-    document.getElementById('main-nav').style.display = 'none';
-    document.getElementById('portal-nav').style.display = 'flex';
-}
-  </script>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -921,19 +826,7 @@
             </div>
         </div>
     </div>
-    <script>
-function showPortalPage(pageId) {
-    // Hide all portal pages
-    document.querySelectorAll('.portal-page').forEach(page => {
-        page.style.display = 'none';
-    });
-    // Show the requested page
-    document.getElementById(pageId).style.display = 'block';
-    // Hide the main navigation, show the portal navigation
-    document.getElementById('main-nav').style.display = 'none';
-    document.getElementById('portal-nav').style.display = 'flex';
-}
-</script>
+    
     <!-- ADMIN DASHBOARD -->
     <div id="page-admin-dashboard" class="portal-page">
          <div class="w-full max-w-7xl mx-auto my-8 px-4">
@@ -1229,7 +1122,7 @@ function showPortalPage(pageId) {
     </div>
   </main>
   
-  <!-- Firebase SDK -->
+  <!-- Main Application Logic & Firebase SDK -->
   <script type="module">
     // Import Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -2398,8 +2291,6 @@ function showPortalPage(pageId) {
       db = getFirestore(app);
       setLogLevel('debug');
       
-      // Note: The collection path for scores is now at the root as per user's latest setup.
-      // This is less secure and might require adjusting security rules.
       scoresCollectionRef = collection(db, 'scores'); 
 
       onAuthStateChanged(auth, handleAuthState);
@@ -2435,60 +2326,6 @@ function showPortalPage(pageId) {
       document.getElementById('timeline-fullscreen-toggle')?.addEventListener('click', toggleTimelineFullscreen);
     });
   </script>
-
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-<!-- Firebase Configuration -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyD3GByINKnlJHCzUbZA8fWWazmx751EKAw",
-    authDomain: "communities-choice-portal.firebaseapp.com",
-    projectId: "communities-choice-portal",
-    storageBucket: "communities-choice-portal.firebasestorage.app",
-    messagingSenderId: "77753238309",
-    appId: "1:77753238309:web:b7bc1381f9478ccbff90cc",
-    measurementId: "G-KMGCMW8840"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
-
-<!-- Login Logic -->
-<script>
-  document.getElementById("login-btn").addEventListener("click", function () {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const message = document.getElementById("login-message");
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        message.textContent = "Login successful. Checking profile...";
-        const userId = userCredential.user.uid;
-
-        db.collection("users").doc(userId).get()
-          .then((doc) => {
-            if (doc.exists) {
-              message.textContent = "Success! Redirecting...";
-              setTimeout(() => {
-                window.location.href = "committee-portal.html";
-              }, 1500);
-            } else {
-              message.textContent = "User profile not found.";
-            }
-          })
-          .catch((error) => {
-            message.textContent = "Error fetching profile: " + error.message;
-          });
-      })
-      .catch((error) => {
-        message.textContent = "Login failed: " + error.message;
-      });
-  });
-</script>
 
 </body>
 </html>
